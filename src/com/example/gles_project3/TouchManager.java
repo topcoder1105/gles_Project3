@@ -20,41 +20,45 @@ public class TouchManager {
 	private boolean isFirstDoubleTouch = true;
 	
 	private double prevSingleX, prevSingleY;
-	private double prevDoubleX, prevDoubleY;
+	private double prevDoubleX, prevDoubleY, prevDistance = -1;
 	public boolean onTouchEvent(MotionEvent event) {
 		switch(event.getAction()) {
 		case MotionEvent.ACTION_UP:			
-			isFirstSingleTouch = true;
-			isFirstDoubleTouch = true;
+			isFirstSingleTouch = false;
+			isFirstDoubleTouch = false;
+			prevDistance = -1;
 			break;
 		case MotionEvent.ACTION_DOWN:
-			isFirstSingleTouch = false;
+			isFirstSingleTouch = true;
+			isFirstDoubleTouch = true;
 			prevSingleX = event.getX();
 			prevSingleY = event.getY();
 			break;
 		case MotionEvent.ACTION_MOVE:
-			if (event.getPointerCount() == 1) {
-				isFirstSingleTouch = false;
+			if (event.getPointerCount() == 1 && isFirstSingleTouch) {
+				// one touch
+				double currentSingleX = event.getX();
+				double currentSingleY = event.getY();
 				
-				// if not double touched
-				if (isFirstDoubleTouch) {
-					
-				}
+				// update prev position
+				prevSingleX = currentSingleX;
+				prevSingleY = currentSingleY;
+				
 			} else if (event.getPointerCount() == 2) {
 				// median value of two touches
 				double currentDoubleX = (event.getX(0) + event.getX(1)) / 2;
 				double currentDoubleY = (event.getY(0) + event.getY(1)) / 2;
+				double currentDistance = (Math.pow(event.getX(0) - event.getX(1), 2) + Math.pow(event.getY(0) - event.getY(1), 2));
+				currentDistance = Math.sqrt(currentDistance);
 				
 				if(!isFirstDoubleTouch) {
 					
 				}
 				prevDoubleX = currentDoubleX;
 				prevDoubleY = currentDoubleY;
+				if(prevDistance < 0) prevDistance = currentDistance;
 				
 				isFirstDoubleTouch = false;
-				isFirstSingleTouch = true;
-				
-				
 			}
 			break;
 		}
