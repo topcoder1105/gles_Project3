@@ -40,6 +40,12 @@ public class TouchManager {
 				double currentSingleX = event.getX();
 				double currentSingleY = event.getY();
 				
+				double diffX = currentSingleX - prevSingleX;
+				double diffY = currentSingleY - prevSingleY;
+				
+				renderer.settX((float)(renderer.gettX() + diffX / 1000f));
+				renderer.settY((float)(renderer.gettY() - diffY / 1000f));
+				
 				// update prev position
 				prevSingleX = currentSingleX;
 				prevSingleY = currentSingleY;
