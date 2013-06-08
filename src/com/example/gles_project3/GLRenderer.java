@@ -23,9 +23,7 @@ public class GLRenderer implements Renderer {
 	private FloatBuffer lightAmbientBuffer;
 	private FloatBuffer lightDiffuseBuffer;
 	private FloatBuffer lightPositionBuffer;
-
-	
-	
+	private float tX = 0, tY = 0, tZ = -5f;
 	
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		ByteBuffer byteBuf = ByteBuffer.allocateDirect(lightAmbient.length * 4);
@@ -45,9 +43,9 @@ public class GLRenderer implements Renderer {
 		lightPositionBuffer = byteBuf.asFloatBuffer();
 		lightPositionBuffer.put(lightPosition);
 		lightPositionBuffer.position(0);
+		
+		TouchManager.getInstance().setRenderer(this);
 
-		
-		
 		object = new Vector<Object>();
 		object.add(new UnitBlock());
 		
@@ -57,12 +55,8 @@ public class GLRenderer implements Renderer {
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
-		gl.glTranslatef(0.5f, -0.5f, -5.0f);
-		object.get(0).draw(gl);
-		gl.glLoadIdentity();
-
-		gl.glTranslatef(0.0f, 0.0f, -6.0f);
-		
+//		gl.glTranslatef(0.5f, -0.5f, -5.0f);
+		gl.glTranslatef(tX, tY, tZ);
 		object.get(0).draw(gl);
 	}
 
@@ -93,4 +87,31 @@ public class GLRenderer implements Renderer {
 		gl.glDepthFunc(GL10.GL_LEQUAL);
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
 	}
+
+	
+	// getters and setters
+	public float gettX() {
+		return tX;
+	}
+
+	public void settX(float tX) {
+		this.tX = tX;
+	}
+
+	public float gettY() {
+		return tY;
+	}
+
+	public void settY(float tY) {
+		this.tY = tY;
+	}
+
+	public float gettZ() {
+		return tZ;
+	}
+
+	public void settZ(float tZ) {
+		this.tZ = tZ;
+	}
+	
 }
