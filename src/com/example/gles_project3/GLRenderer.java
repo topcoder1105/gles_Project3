@@ -10,21 +10,35 @@ import android.opengl.GLU;
 
 public class GLRenderer implements Renderer {
 
+<<<<<<< HEAD
 	Vector<Object> object;
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		object = new Vector<Object>();
 
 		object.add(new UnitBlock());
+=======
+	Vector<Object> object = null;
+	
+	public GLRenderer(GLSurfaceView glSurfaceView) {
+	
+>>>>>>> 0fa311869c7ea91ccf31ca1213c35603dcb7b099
 	}
 
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
+<<<<<<< HEAD
 		gl.glTranslatef(0.5f, -0.5f, -5.0f);
 		object.get(0).draw(gl);
 		gl.glLoadIdentity();
 
+=======
+		gl.glTranslatef(0.0f, 0.0f, -6.0f);
+		
+		object.get(0).draw(gl);
+		
+>>>>>>> 0fa311869c7ea91ccf31ca1213c35603dcb7b099
 	}
 
 	@Override
@@ -36,6 +50,10 @@ public class GLRenderer implements Renderer {
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		
+<<<<<<< HEAD
+=======
+		object.add(new Block(new Size(1,1,1), 0));
+>>>>>>> 0fa311869c7ea91ccf31ca1213c35603dcb7b099
 	}
 
 	@Override
