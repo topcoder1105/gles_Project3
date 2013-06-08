@@ -1,5 +1,7 @@
 package com.example.gles_project3;
 
+import java.util.Random;
+
 import javax.microedition.khronos.opengles.GL10;
 
 public class UnitBlock extends Object {
@@ -28,7 +30,9 @@ public class UnitBlock extends Object {
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, mColorBuffer);
         
+        gl.glDisable(GL10.GL_LIGHTING);
         gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+//        gl.glDrawElements(GL10.GL_LINE_LOOP, 36, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
         		            
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
@@ -38,14 +42,18 @@ public class UnitBlock extends Object {
 	UnitBlock(){
 		mVertexBuffer = getFloatBufferFromFloatArray(verticesUnit);
 		mIndexBuffer = getByteBufferFromByteArray(indices);
-			
 	
-		this.colors = new float[4*8];
-		for ( int i = 0 ; i < 3*8 ; i++ )
+		colors = new float[4*8];
+		for ( int i = 0 ; i < 8 ; i++ )
 		{
-			colors[i] = 0.5f;
+			colors[i*4] = (float) Math.random();;
+			colors[i*4 + 1] = (float) Math.random();
+			colors[i*4 + 2] = (float) Math.random();;
+			colors[i*4 + 3] = 1.0f;
+			
 		}
+		
 		mColorBuffer = getFloatBufferFromFloatArray(colors);
-	
+		
 	}
 }
