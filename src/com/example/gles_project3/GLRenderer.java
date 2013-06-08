@@ -1,5 +1,8 @@
 package com.example.gles_project3;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -20,9 +23,25 @@ public class GLRenderer implements Renderer {
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
+		
 		gl.glTranslatef(0.0f, 0.0f, -6.0f);
 		
-		object.get(0).draw(gl);
+		// test triangle code
+		gl.glClearColor(0, 0, 0, 0);
+		float[] vertex = {1f, 1f, 0f, -1f, 1f, 0f, 0f, -1f, 0f};
+		
+		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(vertex.length * 4);
+		tempBuffer.order(ByteOrder.nativeOrder());
+		FloatBuffer buffer = tempBuffer.asFloatBuffer();
+		buffer.put(vertex);
+		buffer.position(0);
+		
+		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+		gl.glColor4f(1f, 0, 0, 1f);
+		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, buffer);
+		gl.glDrawArrays(GL10.GL_TRIANGLES, 0, 3);
+		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+//		object.get(0).draw(gl);
 		
 	}
 
@@ -35,7 +54,7 @@ public class GLRenderer implements Renderer {
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		
-		object.add(new Block(new Size(1,1,1), 0));
+//		object.add(new Block(new Size(1,1,1), 0));
 	}
 
 	@Override
