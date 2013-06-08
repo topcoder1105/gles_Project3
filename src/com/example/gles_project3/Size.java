@@ -28,10 +28,4 @@ public class Size {
 	{
 		return new Size(this);
 	}
-<<<<<<< HEAD
-	
-	
-=======
-
->>>>>>> 0fa311869c7ea91ccf31ca1213c35603dcb7b099
 }
