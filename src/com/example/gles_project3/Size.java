@@ -28,5 +28,4 @@ public class Size {
 	{
 		return new Size(this);
 	}
-
 }

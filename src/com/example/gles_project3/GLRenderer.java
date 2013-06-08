@@ -13,18 +13,21 @@ import android.opengl.GLU;
 
 public class GLRenderer implements Renderer {
 
-	Vector<Object> object = null;
-	
-	public GLRenderer(GLSurfaceView glSurfaceView) {
-	
-	}
+	Vector<Object> object;
 
+	public GLRenderer(GLSurfaceView glSurfaceView) {
+		object = new Vector<Object>();
+		object.add(new UnitBlock());
+		
+	}
+	
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
-		
-		gl.glTranslatef(0.0f, 0.0f, -6.0f);
+		gl.glTranslatef(0.5f, -0.5f, -5.0f);
+		object.get(0).draw(gl);
+		gl.glLoadIdentity();
 		
 		// test triangle code
 		gl.glClearColor(0, 0, 0, 0);
@@ -54,7 +57,6 @@ public class GLRenderer implements Renderer {
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		
-//		object.add(new Block(new Size(1,1,1), 0));
 	}
 
 	@Override
