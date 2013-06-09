@@ -96,6 +96,8 @@ public class Lattice implements OnTouchInterface{
 
 	public static void Undo()
 	{
+		if ( ObjectVector.size() == 0 )
+			return ;
 		ObjectVector.remove(ObjectVector.size()-1);
 	}
 	
