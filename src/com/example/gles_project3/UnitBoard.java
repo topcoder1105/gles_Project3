@@ -21,7 +21,9 @@ public class UnitBoard {
 	
 	static final float half_unit_size = unit_size/2;
 	static final float half_unit_height = unit_height/2;
-		
+	
+	private UnitCylinder unitcylinder;
+	
 	final float[] vertices = {
 		
 			// À­¸é
@@ -122,6 +124,8 @@ public class UnitBoard {
 		mColorBuffer = getFloatBufferFromFloatArray(colors);
 		mNormalBuffer = getFloatBufferFromFloatArray(normals);
 		mIndexBuffer = getByteBufferFromByteArray(indices);
+		
+		unitcylinder = new UnitCylinder(this.CLR);
 	}
 	
 	void draw(GL10 gl)
@@ -147,6 +151,10 @@ public class UnitBoard {
 		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);	
 		
+		gl.glPushMatrix();
+		gl.glTranslatef(0.0f,0.0f,unit_height);
+		unitcylinder.draw(gl);
+		gl.glPopMatrix();
 	}
 
 

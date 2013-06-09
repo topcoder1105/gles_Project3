@@ -14,61 +14,78 @@ public class UnitCylinder {
 	private ByteBuffer mIndexBuffer = null;
 	
 	private Color CLR;
-	private float[] colors = new float[4*36];	
+	private float[] colors = new float[4*38];	
 	
 	final float unit_size = 0.2f;
 	final float unit_height = 0.08f;
 	
-	final float half_unit_size = unit_size/2;
-	final float half_unit_height = unit_height/2;
+	final float half_unit_size = UnitBoard.unit_size/3;
+	final float half_unit_height = UnitBoard.unit_height/3;
 	
-	private float vertices[] = new float[3*36];
+	private float vertices[] = new float[3*38];
 	
-	private float normals[] = new float [3*36];
+	private float normals[] = new float [3*38];
 		
-	private byte indices[] = {
-			// Faces definition
-			0, 1, 3, 0, 3, 2, 		// Face front
-			4, 5, 7, 4, 7, 6, 		// Face right
-			8, 9, 11, 8, 11, 10, 	// ...
-			12, 13, 15, 12, 15, 14, 
-			16, 17, 19, 16, 19, 18, 
-			20, 21, 23, 20, 23, 22, 
-		};
+	private byte indices[] = new byte [3*12 + 6*12];
 
 	
 	UnitCylinder(Color _CLR)
 	{
-		
-		for ( int i = 0 ; i < 12 ; i++){
-			vertices[i*3] =  (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
-			vertices[i*3+1] = (float) ((float)  UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
-			vertices[i*3+2] = UnitBoard.half_unit_height; 			
-			normals[i*3] = 0.0f;
-			normals[i*3+1] = 0.0f;
-			normals[i*3+2] = 1.0f;
-		}
-		
-		for ( int i = 0 ; i < 12 ; i++){
-			vertices[36+i*3] =  (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
-			vertices[36+i*3+1] = (float) ((float)  UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
-			vertices[36+i*3+2] = UnitBoard.half_unit_height; 			
-			normals[36 + i*3] = (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i + Math.PI/12.0f ));
-			normals[36 + i*3+1] = (float) ((float) UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i + Math.PI/12.0f));
-			normals[36 + i*3+2] = 0.0f;		
-		}
-		for ( int i = 0 ; i < 12; i++){
-			vertices[72 + i*3] =  (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
-			vertices[72 + i*3+1] = (float) ((float)  UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
-			vertices[72 + i*3+2] = -UnitBoard.half_unit_height; 				
-			normals[72 + i*3] = (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i + Math.PI/12.0f ));
-			normals[72 + i*3+1] = (float) ((float) UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i + Math.PI/12.0f));
-			normals[72 + i*3+2] = 0.0f;		
-		}
-		
-		
+
 		this.CLR = _CLR;
-		for ( int i = 0 ; i < 36; i++){	
+		
+		vertices[0] = 0.0f;// (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
+		vertices[1] = 0.0f;//(float) ((float)  UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
+		vertices[2] = half_unit_height; 
+		normals[0] = 0.0f;
+		normals[1] = 0.0f;
+		normals[2] = 1.0f;
+		for ( int i = 0 ; i < 12 ; i++){
+			vertices[3 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
+			vertices[3 + i*3+1] = (float) ((float)  half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
+			vertices[3 + i*3+2] = half_unit_height; 			
+			normals[3 + i*3] = 0.0f;
+			normals[3 + i*3+1] = 0.0f;
+			normals[3 + i*3+2] = 1.0f;
+		}
+		
+		for ( int i = 0 ; i < 12 ; i++){
+			vertices[39 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
+			vertices[39 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
+			vertices[39 + i*3+2] = half_unit_height; 			
+			normals[39 + i*3] = (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i + Math.PI/12.0f ));
+			normals[39 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i + Math.PI/12.0f));
+			normals[39 + i*3+2] = 0.0f;		
+		}
+		for ( int i = 0 ; i < 13; i++){
+			vertices[75 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
+			vertices[75 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
+			vertices[75 + i*3+2] = -half_unit_height; 				
+			normals[75 + i*3] = (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i + Math.PI/12.0f ));
+			normals[75 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i + Math.PI/12.0f));
+			normals[75 + i*3+2] = 0.0f;		
+		}
+		
+		for ( int i = 0 ; i < 12 ; i++)
+		{
+			indices[i*3] = 0;
+			if ( i == 11){ indices[i*3+1] = (byte) (i + 1 - 11);	}
+			else{	indices[i*3+1] = (byte) (i + 1);	}	
+			
+			if ( i == 11){ indices[i*3+2] = (byte) (i + 2 - 11);	}
+			else{	indices[i*3+2] = (byte) (i + 2);	}	
+		}
+		for ( int i = 0 ; i < 12 ; i++)
+		{
+			indices[36+ i*6] = (byte) (13 + i);
+			indices[36+ i*6+1] = (byte) (14 + i);
+			indices[36+ i*6+2] = (byte) (25 + i);
+			indices[36+ i*6+3] = (byte) (25 + i);
+			indices[36+ i*6+4] = (byte) (14 + i);
+			indices[36+ i*6+5] = (byte) (26 + i);			
+		}
+
+		for ( int i = 0 ; i < 38; i++){	
 			colors[i*4] = CLR.r;	colors[i*4+1] = CLR.g;	colors[i*4+2] = CLR.b;	colors[i*4+3] = CLR.a;
 		}
 		

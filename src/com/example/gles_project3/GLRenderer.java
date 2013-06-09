@@ -1,5 +1,7 @@
 package com.example.gles_project3;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.Vector;
 
@@ -24,10 +26,10 @@ public class GLRenderer implements Renderer {
 	
 	
 	/* The buffers for our light values ( NEW ) */
-	private FloatBuffer lightAmbientBuffer;
-	private FloatBuffer lightDiffuseBuffer;
-	private FloatBuffer lightPositionBuffer;
-	private FloatBuffer lightSpecularBuffer;	
+	private FloatBuffer lightAmbientBuffer = getFloatBufferFromFloatArray(lightAmbient);
+	private FloatBuffer lightDiffuseBuffer = getFloatBufferFromFloatArray(lightDiffuse);
+	private FloatBuffer lightPositionBuffer = getFloatBufferFromFloatArray(lightPosition);
+	private FloatBuffer lightSpecularBuffer = getFloatBufferFromFloatArray(lightSpecular);	
 
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
@@ -45,7 +47,9 @@ public class GLRenderer implements Renderer {
 
 //		gl.glTranslatef(0.5f, -0.5f, -5.0f);
 		gl.glTranslatef(tX, tY, tZ);
-		object.get(0).draw(gl);
+		unitboard.draw(gl);
+		gl.glLoadIdentity();
+//		object.get(0).draw(gl);
 	}
 
 	@Override
@@ -104,4 +108,12 @@ public class GLRenderer implements Renderer {
 		this.tZ = tZ;
 	}
 	
+	FloatBuffer getFloatBufferFromFloatArray(float array[]) {
+		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
+		tempBuffer.order(ByteOrder.nativeOrder());
+		FloatBuffer buffer = tempBuffer.asFloatBuffer();
+		buffer.put(array);
+		buffer.position(0);
+		return buffer;
+	}
 }
