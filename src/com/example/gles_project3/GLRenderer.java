@@ -34,7 +34,6 @@ public class GLRenderer implements Renderer {
 	
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
-		TouchManager.getInstance().convertUVToRotation();
 		
 		lattice = new Lattice();
 		lattice.addBlock(new CRD_int(1, 1, 1), new CRD_int(2,3,4), new Color(Color.yellow));
@@ -47,7 +46,8 @@ public class GLRenderer implements Renderer {
 		gl.glLoadIdentity();
 
 		gl.glTranslatef(tX, tY, tZ);
-				
+		
+		
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
 		gl.glRotatef(rZ, 0, 0, 1);
