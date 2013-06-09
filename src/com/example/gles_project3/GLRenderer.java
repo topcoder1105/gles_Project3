@@ -15,12 +15,10 @@ import android.opengl.GLU;
 
 public class GLRenderer implements Renderer {
 
-	Vector<Object> object;
-	Board board = null;
+	private Lattice lattice;
+	
 	private float tX = 0, tY = 0, tZ = -5f;
 	private float rX = 0, rY = 0;
-
-	UnitBoard unitboard = null;
 
 	
 	private float[] lightAmbient = {1.0f, 0.1f, 0.1f, 0.1f};
@@ -37,11 +35,10 @@ public class GLRenderer implements Renderer {
 
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
-//		object = new Vector<Object>();
-//		object.add(new UnitBlock());
-		unitboard = new UnitBoard(new Color(255, 0, 0, 255));
-		board = new Board(1, 1, 1, 2, 3, 4);
 		
+		lattice = new Lattice();
+		lattice.addBlock(1, 1, 1, 2, 3, 4);
+		lattice.addBlock(2, 2, 5, 1, 3, 4);
 		
 	}	
 	
@@ -50,13 +47,11 @@ public class GLRenderer implements Renderer {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
 
-
+		
 		gl.glTranslatef(tX, tY, tZ);
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
-		board.draw(gl);
-		unitboard.draw(gl);
-
+		lattice.draw(gl);
 	}
 
 	@Override
