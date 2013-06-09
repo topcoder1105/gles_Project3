@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		Lattice.Undo();
 		return TouchManager.getInstance().onTouchEvent(event);
 	}
 
