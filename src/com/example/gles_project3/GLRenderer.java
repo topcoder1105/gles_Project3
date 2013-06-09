@@ -19,10 +19,10 @@ public class GLRenderer implements Renderer {
 	private float tX = 0, tY = 0, tZ = -5f;
 	private float rX = 0, rY = 0, rZ = 0;
 
-	private float[] lightAmbient = {1.0f, 1.0f, 1.0f, 1.0f};
-	private float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
+	private float[] lightAmbient = {1.0f, 1.0f, 1.0f, 0.3f};
+	private float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 0.3f};
 	private float[] lightPosition = {0.0f, 0.0f, 50.0f, 0.0f};
-	private float[] lightSpecular = {0.5f, 0.5f, 0.5f, 1.0f};
+	private float[] lightSpecular = {0.5f, 0.5f, 0.5f, 0.3f};
 	
 	
 	/* The buffers for our light values ( NEW ) */
@@ -90,11 +90,14 @@ public class GLRenderer implements Renderer {
  		gl.glEnable(GL10.GL_LIGHTING);
 		
 		gl.glEnable(GL10.GL_COLOR_MATERIAL);
- 		gl.glShadeModel(GL10.GL_SMOOTH);
+		gl.glBlendFunc ( GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA );
+		gl.glShadeModel(GL10.GL_SMOOTH);
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		gl.glClearDepthf(1.0f);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL10.GL_LEQUAL);
+//		 gl.glDepthFunc(GL10.GL_LESS);
+
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
 	}
 

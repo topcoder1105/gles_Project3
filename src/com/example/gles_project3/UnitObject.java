@@ -26,37 +26,37 @@ public class UnitObject {
 	
 	final float[] vertices = {
 		
-			// À­¸é
+			// ï¿½ï¿½ï¿½ï¿½
 			-half_unit_size, -half_unit_size, half_unit_height, //v0
 			half_unit_size, -half_unit_size, half_unit_height,	//v1
 			-half_unit_size, half_unit_size, half_unit_height, 	//v2
 			half_unit_size, half_unit_size, half_unit_height, 	//v3
 		
-			// ¾Õ¸é
+			// ï¿½Õ¸ï¿½
 			half_unit_size, -half_unit_size, half_unit_height, 	// ...
 			half_unit_size, -half_unit_size, -half_unit_height, 
 			half_unit_size, half_unit_size, half_unit_height, 
 			half_unit_size, half_unit_size, -half_unit_height,
 		
-			// ¹Ù´Ú¸é
+			// ï¿½Ù´Ú¸ï¿½
 			half_unit_size, -half_unit_size, -half_unit_height, 
 			-half_unit_size, -half_unit_size, -half_unit_height, 
 			half_unit_size, half_unit_size, -half_unit_height, 
 			-half_unit_size, half_unit_size, -half_unit_height,
 		
-			// µÞ¸é
+			// ï¿½Þ¸ï¿½
 			-half_unit_size, -half_unit_size, -half_unit_height, 
 			-half_unit_size, -half_unit_size, half_unit_height, 
 			-half_unit_size, half_unit_size, -half_unit_height, 
 			-half_unit_size, half_unit_size, half_unit_height,
 		
-			// ¿ÞÂÊ¸é
+			// ï¿½ï¿½ï¿½Ê¸ï¿½
 			-half_unit_size, -half_unit_size, -half_unit_height, 
 			half_unit_size, -half_unit_size, -half_unit_height, 
 			-half_unit_size, -half_unit_size, half_unit_height, 
 			half_unit_size, -half_unit_size, half_unit_height,
 		
-			// ¿À¸¥ÂÊ¸é
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½
 			-half_unit_size, half_unit_size, half_unit_height, 
 			half_unit_size, half_unit_size, half_unit_height,
 			-half_unit_size, half_unit_size, -half_unit_height, 
@@ -127,22 +127,23 @@ public class UnitObject {
 		
 		unitcylinder = new UnitCylinder(this.CLR);
 	}
-	
+	    
+
 	void draw(GL10 gl)
 	{
 		//Enable the vertex, texture and normal state
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-		
+	
 		//Set the face rotation
-		gl.glFrontFace(GL10.GL_CW);
+		gl.glFrontFace(GL10.GL_CCW);
 		
 		//Point to our buffers
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
 		gl.glColorPointer(4, GL10.GL_FLOAT, 0, mColorBuffer);
 		gl.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
-
+		
 		//Draw the vertices as triangles, based on the Index Buffer information
 		gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 		

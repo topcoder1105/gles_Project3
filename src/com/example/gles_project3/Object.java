@@ -24,8 +24,7 @@ public class Object {
 		float x = (2*_Pos.x + _Size.x)*UnitObject.half_unit_size;
 		float y = (2*_Pos.y + _Size.y)*UnitObject.half_unit_size;
 		float z = (2*_Pos.z + _Size.z)*UnitObject.half_unit_height;
-		
-		
+			
 		this.objectData = new ObjectData(new CRD_float(x,y,z) , new CRD_int(_Pos), new CRD_int(_Size), new Color(_Color));
 	
 		block = new UnitObject[this.objectData.size.x][this.objectData.size.y][this.objectData.size.z];		
@@ -38,6 +37,7 @@ public class Object {
 	
 	
 	public void draw(GL10 gl){
+		
 		for(int i=0; i<this.objectData.size.x; i++){
 			for(int j=0; j<this.objectData.size.y; j++){
 				for(int k=0 ; k<this.objectData.size.z; k++){
