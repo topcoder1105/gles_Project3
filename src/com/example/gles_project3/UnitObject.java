@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public class UnitBoard {
+public class UnitObject {
 
 	private FloatBuffer mVertexBuffer = null;
 	private FloatBuffer mColorBuffer = null;
@@ -113,7 +113,7 @@ public class UnitBoard {
 		};
 
 	
-	UnitBoard(Color _CLR)
+	UnitObject(Color _CLR)
 	{
 		this.CLR = _CLR;
 		for ( int i = 0 ; i < 24; i++){	

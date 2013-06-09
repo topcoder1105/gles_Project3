@@ -19,8 +19,8 @@ public class UnitCylinder {
 	final float unit_size = 0.2f;
 	final float unit_height = 0.08f;
 	
-	final float half_unit_size = UnitBoard.unit_size/3;
-	final float half_unit_height = UnitBoard.unit_height/3;
+	final float half_unit_size = UnitObject.unit_size/3;
+	final float half_unit_height = UnitObject.unit_height/3;
 	
 	private float vertices[] = new float[3*39];
 	

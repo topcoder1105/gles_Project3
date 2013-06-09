@@ -9,17 +9,6 @@ import javax.microedition.khronos.opengles.GL10;
 public class staticVar {
 
 
-	static private float[] lightAmbient = {1.0f, 1.0f, 1.0f, 1.0f};
-	static private float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
-	static private float[] lightPosition = {0.0f, 0.0f, 50.0f, 0.0f};
-	static private float[] lightSpecular = {0.5f, 0.5f, 0.5f, 1.0f};
-	
-	
-	/* The buffers for our light values ( NEW ) */
-	static public FloatBuffer lightAmbientBuffer = getFloatBufferFromFloatArray(lightAmbient);
-	static public FloatBuffer lightDiffuseBuffer = getFloatBufferFromFloatArray(lightDiffuse);
-	static public FloatBuffer lightPositionBuffer = getFloatBufferFromFloatArray(lightPosition);
-	static public FloatBuffer lightSpecularBuffer = getFloatBufferFromFloatArray(lightSpecular);	
 		
 	static float white_ambient[] = {0.1f, 0.0f, 0.0f, 1.0f};
 	static float white_diffuse[] = {0.1f, 0.0f, 0.0f, 1.0f};
