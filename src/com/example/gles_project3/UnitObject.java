@@ -127,30 +127,52 @@ public class UnitObject {
 		
 		unitcylinder = new UnitCylinder(this.CLR);
 	}
-	    
+	
+	static float glass_ambient[] = {0.0f, 0.0f, 0.0f, 0.0f};
+	static float glass_diffuse[] = {0.0f, 0.0f, 0.0f, 0.0f};
+	static float glass_specular[] = {0.0f, 0.0f, 0.0f, 0.0f};
+	static FloatBuffer glass_ambientbuffer = getFloatBufferFromFloatArray(glass_ambient);
+    static FloatBuffer glass_diffusebuffer = getFloatBufferFromFloatArray(glass_diffuse);
+    static FloatBuffer glass_specularbuffer = getFloatBufferFromFloatArray(glass_specular);
+	static FloatBuffer getFloatBufferFromFloatArray(float array[]) {
+		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
+		tempBuffer.order(ByteOrder.nativeOrder());
+		FloatBuffer buffer = tempBuffer.asFloatBuffer();
+		buffer.put(array);
+		buffer.position(0);
+		return buffer;
+	}
+
+    
+    static void Material_Color(GL10 gl, Color _Color)
+    {
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_AMBIENT, glass_ambientbuffer);
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_DIFFUSE, glass_diffusebuffer);
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SPECULAR, glass_specularbuffer);
+    	gl.glMaterialx(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, 128);
+	    gl.glColor4f(_Color.r, _Color.g, _Color.b, _Color.a);
+    }
 
 	void draw(GL10 gl)
 	{
 		//Enable the vertex, texture and normal state
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-	
+
 		//Set the face rotation
-		gl.glFrontFace(GL10.GL_CCW);
-		
+		gl.glFrontFace(GL10.GL_CW);
 		//Point to our buffers
-		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
-		gl.glColorPointer(4, GL10.GL_FLOAT, 0, mColorBuffer);
-		gl.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
 		
+		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
+		gl.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
+		Material_Color(gl, new Color(this.CLR) );
+
 		//Draw the vertices as triangles, based on the Index Buffer information
 		gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 		
 		//Disable the client state before leaving
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);	
-		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 		
 		gl.glPushMatrix();
 		gl.glTranslatef(0.0f,0.0f,unit_height*5.0f/6.0f);
@@ -160,6 +182,7 @@ public class UnitObject {
 
 
 	
+	/*
 	FloatBuffer getFloatBufferFromFloatArray(float array[]) {
 		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
 		tempBuffer.order(ByteOrder.nativeOrder());
@@ -168,6 +191,8 @@ public class UnitObject {
 		buffer.position(0);
 		return buffer;
 	}
+	*/
+	
 	ByteBuffer getByteBufferFromByteArray( byte array[]) {
 		ByteBuffer buffer = ByteBuffer.allocateDirect(array.length);
 		buffer.put(array);
