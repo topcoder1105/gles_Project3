@@ -18,7 +18,7 @@ public class Lattice implements OnTouchInterface{
 	public static final CRD_float OriginPoint = new CRD_float(0.0f,0.0f,0.0f);
 	
 	
-	Vector<Object> ObjectVector = new Vector<Object>();
+	static Vector<Object> ObjectVector = new Vector<Object>();
 	Object tmpObject;
 	
 	Lattice()
@@ -94,9 +94,9 @@ public class Lattice implements OnTouchInterface{
 			tmpObject.draw(gl);
 	}
 
-	public void Undo()
+	public static void Undo()
 	{
-		this.ObjectVector.remove(this.ObjectVector.size()-1);
+		ObjectVector.remove(ObjectVector.size()-1);
 	}
 	
 	
