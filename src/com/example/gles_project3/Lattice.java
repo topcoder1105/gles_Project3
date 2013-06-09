@@ -96,7 +96,6 @@ public class Lattice implements OnTouchInterface{
 
 	public static void Undo()
 	{
-		tmpObject = null;
 		if ( ObjectVector.size() < 2 )
 			return ;
 		CRD_int _Pos = ObjectVector.get(ObjectVector.size()-1).objectData.pos;

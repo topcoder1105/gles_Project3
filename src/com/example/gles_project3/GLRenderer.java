@@ -34,8 +34,6 @@ public class GLRenderer implements Renderer {
 		TouchManager.getInstance().setRenderer(this);
 		
 		lattice = new Lattice();
-		lattice.addBlock(new CRD_int(1, 1, 1), new CRD_int(2,3,4), new Color(Color.yellow));
-		
 	}	
 	
 	@Override
