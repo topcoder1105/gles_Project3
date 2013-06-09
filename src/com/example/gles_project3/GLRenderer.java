@@ -1,7 +1,5 @@
 package com.example.gles_project3;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.Vector;
 
@@ -29,20 +27,10 @@ public class GLRenderer implements Renderer {
 	private FloatBuffer lightAmbientBuffer;
 	private FloatBuffer lightDiffuseBuffer;
 	private FloatBuffer lightPositionBuffer;
-	private FloatBuffer lightSpecularBuffer;
-	private float tX = 0, tY = 0, tZ = -5f;
-	
+	private FloatBuffer lightSpecularBuffer;	
 
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
-<<<<<<< HEAD
-				
-=======
-		
-		object = new Vector<Object>();
-		object.add(new UnitBlock());
->>>>>>> 563c61fc155def45272b182aeeace4c0b6e61d23
-		
 //		object = new Vector<Object>();
 //		object.add(new UnitBlock());
 		unitboard = new UnitBoard(new Color(255, 0, 0, 255));
@@ -54,13 +42,10 @@ public class GLRenderer implements Renderer {
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
-<<<<<<< HEAD
 
-=======
 //		gl.glTranslatef(0.5f, -0.5f, -5.0f);
 		gl.glTranslatef(tX, tY, tZ);
 		object.get(0).draw(gl);
->>>>>>> 563c61fc155def45272b182aeeace4c0b6e61d23
 	}
 
 	@Override
