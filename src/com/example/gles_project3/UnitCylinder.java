@@ -14,91 +14,17 @@ public class UnitCylinder {
 	private ByteBuffer mIndexBuffer = null;
 	
 	private Color CLR;
-	private float[] colors = new float[4*24];	
+	private float[] colors = new float[4*36];	
 	
 	final float unit_size = 0.2f;
 	final float unit_height = 0.08f;
 	
 	final float half_unit_size = unit_size/2;
 	final float half_unit_height = unit_height/2;
-		
-	final float[] vertices = {
-		
-			// À­¸é
-			-half_unit_size, -half_unit_size, half_unit_height, //v0
-			half_unit_size, -half_unit_size, half_unit_height,	//v1
-			-half_unit_size, half_unit_size, half_unit_height, 	//v2
-			half_unit_size, half_unit_size, half_unit_height, 	//v3
-		
-			// ¾Õ¸é
-			half_unit_size, -half_unit_size, half_unit_height, 	// ...
-			half_unit_size, -half_unit_size, -half_unit_height, 
-			half_unit_size, half_unit_size, half_unit_height, 
-			half_unit_size, half_unit_size, -half_unit_height,
-		
-			// ¹Ù´Ú¸é
-			half_unit_size, -half_unit_size, -half_unit_height, 
-			-half_unit_size, -half_unit_size, -half_unit_height, 
-			half_unit_size, half_unit_size, -half_unit_height, 
-			-half_unit_size, half_unit_size, -half_unit_height,
-		
-			// µÞ¸é
-			-half_unit_size, -half_unit_size, -half_unit_height, 
-			-half_unit_size, -half_unit_size, half_unit_height, 
-			-half_unit_size, half_unit_size, -half_unit_height, 
-			-half_unit_size, half_unit_size, half_unit_height,
-		
-			// ¿ÞÂÊ¸é
-			-half_unit_size, -half_unit_size, -half_unit_height, 
-			half_unit_size, -half_unit_size, -half_unit_height, 
-			-half_unit_size, -half_unit_size, half_unit_height, 
-			half_unit_size, -half_unit_size, half_unit_height,
-		
-			// ¿À¸¥ÂÊ¸é
-			-half_unit_size, half_unit_size, half_unit_height, 
-			half_unit_size, half_unit_size, half_unit_height,
-			-half_unit_size, half_unit_size, -half_unit_height, 
-			half_unit_size, half_unit_size, -half_unit_height, 
-	};
- 	
-	private float normals[] = {
-			
-			// Front face
-			0.0f, 0.0f, 1.0f, 						
-			0.0f, 0.0f, 1.0f, 
-			0.0f, 0.0f, 1.0f, 
-			0.0f, 0.0f, 1.0f, 
-			
-			// Right face		
-			1.0f, 0.0f, 0.0f, 
-			1.0f, 0.0f, 0.0f, 
-			1.0f, 0.0f, 0.0f, 
-			1.0f, 0.0f, 0.0f, 
-
-			// Back face
-			0.0f, 0.0f, -1.0f, 
-			0.0f, 0.0f, -1.0f, 
-			0.0f, 0.0f, -1.0f, 
-			0.0f, 0.0f, -1.0f, 
-
-			// Left face
-			-1.0f, 0.0f, 0.0f, 
-			-1.0f, 0.0f, 0.0f, 
-			-1.0f, 0.0f, 0.0f, 
-			-1.0f, 0.0f, 0.0f, 
-
-			// Bottom face
-			0.0f, -1.0f, 0.0f, 
-			0.0f, -1.0f, 0.0f, 
-			0.0f, -1.0f, 0.0f, 
-			0.0f, -1.0f, 0.0f, 
-
-			// Up face
-			0.0f, 1.0f, 0.0f, 
-			0.0f, 1.0f, 0.0f, 
-			0.0f, 1.0f, 0.0f, 
-			0.0f, 1.0f, 0.0f, 
-		};
+	
+	private float vertices[] = new float[3*36];
+	
+	private float normals[] = new float [3*36];
 		
 	private byte indices[] = {
 			// Faces definition
@@ -113,8 +39,36 @@ public class UnitCylinder {
 	
 	UnitCylinder(Color _CLR)
 	{
+		
+		for ( int i = 0 ; i < 12 ; i++){
+			vertices[i*3] =  (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
+			vertices[i*3+1] = (float) ((float)  UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
+			vertices[i*3+2] = UnitBoard.half_unit_height; 			
+			normals[i*3] = 0.0f;
+			normals[i*3+1] = 0.0f;
+			normals[i*3+2] = 1.0f;
+		}
+		
+		for ( int i = 0 ; i < 12 ; i++){
+			vertices[36+i*3] =  (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
+			vertices[36+i*3+1] = (float) ((float)  UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
+			vertices[36+i*3+2] = UnitBoard.half_unit_height; 			
+			normals[36 + i*3] = (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i + Math.PI/12.0f ));
+			normals[36 + i*3+1] = (float) ((float) UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i + Math.PI/12.0f));
+			normals[36 + i*3+2] = 0.0f;		
+		}
+		for ( int i = 0 ; i < 12; i++){
+			vertices[72 + i*3] =  (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
+			vertices[72 + i*3+1] = (float) ((float)  UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
+			vertices[72 + i*3+2] = -UnitBoard.half_unit_height; 				
+			normals[72 + i*3] = (float) ((float) UnitBoard.half_unit_size*Math.cos( (float) Math.PI/6.0f * i + Math.PI/12.0f ));
+			normals[72 + i*3+1] = (float) ((float) UnitBoard.half_unit_size*Math.sin( (float) Math.PI/6.0f * i + Math.PI/12.0f));
+			normals[72 + i*3+2] = 0.0f;		
+		}
+		
+		
 		this.CLR = _CLR;
-		for ( int i = 0 ; i < 24; i++){	
+		for ( int i = 0 ; i < 36; i++){	
 			colors[i*4] = CLR.r;	colors[i*4+1] = CLR.g;	colors[i*4+2] = CLR.b;	colors[i*4+3] = CLR.a;
 		}
 		

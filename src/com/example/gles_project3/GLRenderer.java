@@ -14,6 +14,7 @@ import android.opengl.GLU;
 public class GLRenderer implements Renderer {
 
 	Vector<Object> object;
+
 	UnitBoard unitboard = null;
 	
 	private float[] lightAmbient = {1.0f, 0.1f, 0.1f, 0.1f};
@@ -29,31 +30,10 @@ public class GLRenderer implements Renderer {
 	private FloatBuffer lightSpecularBuffer;
 	private float tX = 0, tY = 0, tZ = -5f;
 	
+
 	public GLRenderer(GLSurfaceView glSurfaceView) {
-		ByteBuffer byteBuf = ByteBuffer.allocateDirect(lightAmbient.length * 4);
-		byteBuf.order(ByteOrder.nativeOrder());
-		lightAmbientBuffer = byteBuf.asFloatBuffer();
-		lightAmbientBuffer.put(lightAmbient);
-		lightAmbientBuffer.position(0);
+		TouchManager.getInstance().setRenderer(this);
 		
-		byteBuf = ByteBuffer.allocateDirect(lightDiffuse.length * 4);
-		byteBuf.order(ByteOrder.nativeOrder());
-		lightDiffuseBuffer = byteBuf.asFloatBuffer();
-		lightDiffuseBuffer.put(lightDiffuse);
-		lightDiffuseBuffer.position(0);
-		
-		byteBuf = ByteBuffer.allocateDirect(lightPosition.length * 4);
-		byteBuf.order(ByteOrder.nativeOrder());
-		lightPositionBuffer = byteBuf.asFloatBuffer();
-		lightPositionBuffer.put(lightPosition);
-		lightPositionBuffer.position(0);
-		
-		
-		byteBuf = ByteBuffer.allocateDirect(lightSpecular.length * 4);
-		byteBuf.order(ByteOrder.nativeOrder());
-		lightSpecularBuffer = byteBuf.asFloatBuffer();
-		lightSpecularBuffer.put(lightSpecular);
-		lightSpecularBuffer.position(0);
 		
 		
 		TouchManager.getInstance().setRenderer(this);
@@ -70,16 +50,7 @@ public class GLRenderer implements Renderer {
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
-		
-//		gl.glTranslatef(0.5f, -0.5f, -5.0f);
-//		gl.glRotatef(0.1f,tX,tY, tZ);
-		gl.glTranslatef(tX, tY, tZ);
-		
-		unitboard.draw(gl);
-		gl.glLoadIdentity();
-		//		unitboard.draw(gl);
-		
-//		object.get(0).draw(gl);
+
 	}
 
 	@Override

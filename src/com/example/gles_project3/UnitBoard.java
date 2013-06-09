@@ -16,11 +16,11 @@ public class UnitBoard {
 	private Color CLR;
 	private float[] colors = new float[4*24];	
 	
-	final float unit_size = 0.2f;
-	final float unit_height = 0.08f;
+	static final float unit_size = 0.2f;
+	static final float unit_height = 0.08f;
 	
-	final float half_unit_size = unit_size/2;
-	final float half_unit_height = unit_height/2;
+	static final float half_unit_size = unit_size/2;
+	static final float half_unit_height = unit_height/2;
 		
 	final float[] vertices = {
 		
