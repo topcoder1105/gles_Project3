@@ -14,15 +14,19 @@ import android.opengl.GLU;
 public class GLRenderer implements Renderer {
 
 	Vector<Object> object;
+	UnitBoard unitboard = null;
 	
-	private float[] lightAmbient = {0.5f, 0.5f, 0.5f, 1.0f};
-	private float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
-	private float[] lightPosition = {0.0f, 0.0f, 2.0f, 1.0f};
-		
+	private float[] lightAmbient = {1.0f, 0.1f, 0.1f, 0.1f};
+	private float[] lightDiffuse = {1.0f, 0.1f, 0.1f, 0.1f};
+	private float[] lightPosition = {0.0f, 0.0f, 10.0f, 0.0f};
+	private float[] lightSpecular = {0.1f, 0.0f, 0.0f, 1.0f}; // Specular
+	
+	
 	/* The buffers for our light values ( NEW ) */
 	private FloatBuffer lightAmbientBuffer;
 	private FloatBuffer lightDiffuseBuffer;
 	private FloatBuffer lightPositionBuffer;
+	private FloatBuffer lightSpecularBuffer;
 	private float tX = 0, tY = 0, tZ = -5f;
 	
 	public GLRenderer(GLSurfaceView glSurfaceView) {
@@ -44,20 +48,38 @@ public class GLRenderer implements Renderer {
 		lightPositionBuffer.put(lightPosition);
 		lightPositionBuffer.position(0);
 		
-		TouchManager.getInstance().setRenderer(this);
-
-		object = new Vector<Object>();
-		object.add(new UnitBlock());
 		
-	}
+		byteBuf = ByteBuffer.allocateDirect(lightSpecular.length * 4);
+		byteBuf.order(ByteOrder.nativeOrder());
+		lightSpecularBuffer = byteBuf.asFloatBuffer();
+		lightSpecularBuffer.put(lightSpecular);
+		lightSpecularBuffer.position(0);
+		
+		
+		TouchManager.getInstance().setRenderer(this);
+		
+		
+//		object = new Vector<Object>();
+//		object.add(new UnitBlock());
+		unitboard = new UnitBoard(new Color(255, 0, 0, 255));
+		
+		
+	}	
 	
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
+		
 //		gl.glTranslatef(0.5f, -0.5f, -5.0f);
+//		gl.glRotatef(0.1f,tX,tY, tZ);
 		gl.glTranslatef(tX, tY, tZ);
-		object.get(0).draw(gl);
+		
+		unitboard.draw(gl);
+		gl.glLoadIdentity();
+		//		unitboard.draw(gl);
+		
+//		object.get(0).draw(gl);
 	}
 
 	@Override
@@ -76,12 +98,14 @@ public class GLRenderer implements Renderer {
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, lightAmbientBuffer);		//Setup The Ambient Light ( NEW )
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, lightDiffuseBuffer);		//Setup The Diffuse Light ( NEW )
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, lightPositionBuffer);	//Position The Light ( NEW )
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_SPECULAR, lightSpecularBuffer);	//Specular The Light ( NEW )		
+
 		gl.glEnable(GL10.GL_LIGHT0);											//Enable Light 0 ( NEW )
 		gl.glEnable(GL10.GL_LIGHTING);
 		
 		
 		gl.glShadeModel(GL10.GL_SMOOTH);
-		gl.glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		gl.glClearDepthf(1.0f);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL10.GL_LEQUAL);

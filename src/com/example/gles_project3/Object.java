@@ -8,6 +8,11 @@ import javax.microedition.khronos.opengles.GL10;
 
 public abstract class Object {
 
+	
+	
+	
+	
+	
 	protected FloatBuffer mVertexBuffer = null;
 	protected ByteBuffer mIndexBuffer = null;
 	protected FloatBuffer mColorBuffer = null;
@@ -58,4 +63,58 @@ public abstract class Object {
 		buffer.position(0);
 		return buffer;
 	}
+	
+	
+	float white_ambient[] = {0.1f, 0.1f, 0.1f, 1.0f};
+	float white_diffuse[] = {0.6f, 0.6f, 0.5f, 1.0f};
+	float white_specular[] = {0.5f, 0.5f, 0.5f, 1.0f};
+	
+	float gray_ambient[] = {0.1f, 0.1f, 0.1f, 1.0f};
+	float gray_diffuse[] = {0.6f, 0.6f, 0.5f, 1.0f};
+	float gray_specular[] = {0.5f, 0.5f, 0.5f, 1.0f};
+	
+	float glass_ambient[] = {0.3f, 0.3f, 0.3f, 0.3f};
+	float glass_diffuse[] = {0.3f, 0.3f, 0.3f, 0.3f};
+	float glass_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+	
+    FloatBuffer white_ambientbuffer = getFloatBufferFromFloatArray(white_ambient);
+    FloatBuffer white_diffusebuffer = getFloatBufferFromFloatArray(white_diffuse);
+    FloatBuffer white_specularbuffer = getFloatBufferFromFloatArray(white_specular);
+    
+    FloatBuffer gray_ambientbuffer = getFloatBufferFromFloatArray(gray_ambient);
+    FloatBuffer gray_diffusebuffer = getFloatBufferFromFloatArray(gray_diffuse);
+    FloatBuffer gray_specularbuffer = getFloatBufferFromFloatArray(gray_specular);
+    
+    FloatBuffer glass_ambientbuffer = getFloatBufferFromFloatArray(glass_ambient);
+    FloatBuffer glass_diffusebuffer = getFloatBufferFromFloatArray(glass_diffuse);
+    FloatBuffer glass_specularbuffer = getFloatBufferFromFloatArray(glass_specular);
+	
+	
+	void Material_Flat_Gray(GL10 gl)
+    {
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_AMBIENT, gray_ambientbuffer);
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_DIFFUSE, gray_diffusebuffer);
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SPECULAR, gray_specularbuffer);
+    	gl.glMaterialx(GL10.GL_FRONT, GL10.GL_SHININESS, 16);
+		gl.glColor4f(0.4f, 0.0f, 0.0f, 1.0f);
+    }
+    
+    void Material_Flat_White(GL10 gl)
+    {
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_AMBIENT, white_ambientbuffer);
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_DIFFUSE, white_diffusebuffer);
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SPECULAR, white_specularbuffer);
+    	gl.glMaterialx(GL10.GL_FRONT, GL10.GL_SHININESS, 16);
+		gl.glColor4f(1.0f, 1.0f, 0.95f, 1.0f);
+    }
+    
+    void Material_Glass(GL10 gl)
+    {
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_AMBIENT, glass_ambientbuffer);
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_DIFFUSE, glass_diffusebuffer);
+    	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SPECULAR, glass_specularbuffer);
+    	gl.glMaterialx(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, 128);
+	    gl.glColor4f(0.3f, 0.3f, 0.3f, 0.3f);
+    }
+    
 }
