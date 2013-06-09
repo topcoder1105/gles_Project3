@@ -13,13 +13,13 @@ public class Lattice implements OnTouchInterface{
 	public static final int lat_height = 20;
 	public static final int lat_depth = 30;
 	
-	int lattice[][][] = new int[lat_width][lat_height][lat_depth];
+	static int lattice[][][] = new int[lat_width][lat_height][lat_depth];
 
 	public static final CRD_float OriginPoint = new CRD_float(0.0f,0.0f,0.0f);
 	
 	
 	static Vector<Object> ObjectVector = new Vector<Object>();
-	Object tmpObject;
+	static Object tmpObject;
 	
 	Lattice()
 	{
@@ -96,6 +96,23 @@ public class Lattice implements OnTouchInterface{
 
 	public static void Undo()
 	{
+		tmpObject = null;
+		if ( ObjectVector.size() < 2 )
+			return ;
+		CRD_int _Pos = ObjectVector.get(ObjectVector.size()-1).objectData.pos;
+		CRD_int _Size = ObjectVector.get(ObjectVector.size()-1).objectData.size;
+		
+		for(int i=0; i<_Size.x; i++)
+			for(int j=0; j<_Size.y; j++)
+				for(int k=0; k<_Size.z; k++)
+				{
+					int x = (_Pos.x+i)%Lattice.lat_width;
+					int y = (_Pos.y+j)%Lattice.lat_height;
+					int z = (_Pos.z+k)%Lattice.lat_depth; 
+				
+					lattice[x][y][z] = Lattice.lat_empty;
+				}
+				
 		ObjectVector.remove(ObjectVector.size()-1);
 	}
 	
@@ -106,7 +123,7 @@ public class Lattice implements OnTouchInterface{
 	public void onInputTouchDown(Dot startPoint, Dot directVector) {
 //		CRD_float SP = new CRD_float((float) startPoint.x, (float) startPoint.y,(float) startPoint.z);
 //		CRD_float DV = new CRD_float((float) directVector.x,(float) directVector.y,(float) directVector.z); 
-		this.tmpObject = null;
+		tmpObject = null;
 		float T = (float) (startPoint.z/directVector.z);	
 		float BottomX = (float) (startPoint.x - directVector.x*T);
 		float BottomY = (float) (startPoint.y - directVector.y*T);
@@ -135,20 +152,20 @@ public class Lattice implements OnTouchInterface{
 		drawingColor.g *= 2.55f;
 		drawingColor.b *= 2.55f;
 		
-		this.tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
+		tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
 		
 	}
 	
 	
 	@Override
 	public void onInputTouchUp(Dot startPoint, Dot directVector) {
-		this.addBlock(this.tmpObject.objectData.pos,this.tmpObject.objectData.size, Object.drawingColor);
-		this.tmpObject = null;
+		this.addBlock(tmpObject.objectData.pos, tmpObject.objectData.size, Object.drawingColor);
+		tmpObject = null;
 	}
 
 	@Override
 	public void onInputTouchCancel(Dot startPoint, Dot directVector) {
-		this.tmpObject = null;
+		tmpObject = null;
 	}
 
 	@Override
