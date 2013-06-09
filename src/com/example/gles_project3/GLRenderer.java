@@ -42,7 +42,7 @@ public class GLRenderer implements Renderer {
 		gl.glLoadIdentity();
 
 		gl.glTranslatef(tX, tY, tZ);
-		
+				
 		
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
