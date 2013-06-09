@@ -50,4 +50,11 @@ public class Dot{
 	public Dot rotate(double theta, double x, double y, double z) {
 		return rotate(theta, new Dot(x,y,z));
 	}
+	public double angle(Dot pt) {
+		double radian = inner_product(pt) / (this.length() * pt.length());
+		return radian * 180 / Math.PI;
+	}
+	public double inner_product(Dot pt) {
+		return this.x * pt.x + this.y * pt.y + this.z * pt.z;
+	}
 }
