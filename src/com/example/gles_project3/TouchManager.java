@@ -69,12 +69,13 @@ Log.e("TEST", " : " + event.getPointerCount());
 					double diffY = currentDoubleY - prevDoubleY;
 					onDoubleTouchMoved(diffX, diffY);
 					
-					double ratio = currentDistance / prevDistance;
-					onDoubleTouchZoomed(ratio);
+					double distance = currentDistance - prevDistance;
+					onDoubleTouchZoomed(distance);
 				}
 				prevDoubleX = currentDoubleX;
 				prevDoubleY = currentDoubleY;
-				if(prevDistance < 0) prevDistance = currentDistance;
+//				if(prevDistance < 0) prevDistance = currentDistance;
+				prevDistance = currentDistance;
 				
 				isFirstDoubleTouch = false;
 				isFirstSingleTouch = true;
@@ -96,8 +97,8 @@ Log.e("TEST", " : " + event.getPointerCount());
 		renderer.setrY((float)(renderer.getrY() + dx));
 	}
 	
-	void onDoubleTouchZoomed(double ratio) {
-		renderer.settZ((float)(renderer.gettZ() * ((ratio - 1) / 10 + 1)));
+	void onDoubleTouchZoomed(double distance) {
+		renderer.settZ((float) (renderer.gettZ() + distance / 80f));
 
 	}
 	
