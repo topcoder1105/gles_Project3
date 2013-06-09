@@ -59,7 +59,7 @@ public class TouchManager {
 				isFirstSingleTouch = false;
 				isFirstDoubleTouch = true;
 				
-//				onSingleTouchDown(currentSingleX, currentSingleY);
+				onSingleTouchDown(currentSingleX, currentSingleY);
 				
 			} else if (event.getPointerCount() == 2) {
 				// median value of two touches
@@ -115,8 +115,8 @@ public class TouchManager {
 		if (onTouchInterface != null) {
 			Dot rotation = convertUVToRotation();
 			
-			double px = dx * renderer.gettZ() / renderer.getWidth() - renderer.gettZ() / 2;
-			double py = (renderer.getHeight() - dy) * renderer.gettZ() / renderer.getHeight() - renderer.gettZ() / 2 ;
+			double px = dx * renderer.gettZ() / renderer.getWidth() - renderer.gettZ() / 2 + renderer.gettX();
+			double py = (renderer.getHeight() - dy) * renderer.gettZ() / renderer.getHeight() - renderer.gettZ() / 2 + renderer.gettY();
 
 			Dot start_point = new Dot(-px, -py, 0);
 			start_point.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0);
