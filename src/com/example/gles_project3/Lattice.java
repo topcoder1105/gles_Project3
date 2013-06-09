@@ -5,65 +5,67 @@ import java.util.Vector;
 import javax.microedition.khronos.opengles.GL10;
 
 public class Lattice implements OnTouchInterface{
-	// °¢ °ÝÀÚµéÀÇ »óÅÂ( °´Ã¼°¡ ÀÖÀ½, ¾øÀ½ µî)À» ÀúÀåÇÏ´Â 3Â÷¿ø ¹è¿­
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½( ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ 3ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 	int lattice[][][] = new int[20][20][30];
 
-	public static final int lat_empty = 101; // °ÝÀÚ¿¡ ¾Æ¹«°Íµµ ¾øÀ» ¶§
-	public static final int lat_exist = 102; // °ÝÀÚ¿¡ °´Ã¼°¡ Á¸ÀçÇÒ ¶§
+	public static final int lat_empty = 101; // ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	public static final int lat_exist = 102; // ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public static final int lat_width = 20;
 	public static final int lat_height = 20;
 	
 	
-	// ÁÂÇ¥ÀÇ ±âÁØÀÌ µÇ´Â Á¡(x,y,z ÃàÀÇ °¡Àå ÀÛÀº °ª)
+	// ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½(x,y,z ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
 	public static final CRD_float OriginPoint = new CRD_float(0.0f,0.0f,0.0f);
 	
-	// °´Ã¼µéÀ» ÀúÀåÇÏ´Â º¤ÅÍ
+	// ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 	Vector<Object> ObjectVector = new Vector<Object>();
 	Object tmpObject;
 	
 	Lattice()
-	{	// °ÝÀÚÀÇ ¸ðµç »óÅÂ¸¦ ºó»óÅÂ·Î Ç¥Çö
+	{	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½Â·ï¿½ Ç¥ï¿½ï¿½
 		for(int i=0; i<Lattice.lat_width; i++)
 			for(int j=0; j<Lattice.lat_height; j++)
 				for(int k=0; k<30; k++)
 					lattice[i][j][k] = Lattice.lat_empty;
 	
-		// ¹Ù´Ú¸é ¸¸µé°í ÇØ´ç Áö¿ª¿¡ 1·Î Ã¼Å©
+		// ï¿½Ù´Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ Ã¼Å©
 		ObjectVector.add(new Object(new CRD_int(0, 0, 0), new CRD_int(20,20, 1), new Color(Color.green) ));
 		for(int i=0; i<Lattice.lat_width; i++)
 			for(int j=0; j<Lattice.lat_height; j++)
 				for(int k=0; k<1; k++)
 					lattice[i][j][k] = Lattice.lat_exist;
+		
+		TouchManager.getInstance().setOnTouchInterface(this);
 	}
 		
 	void addBlock(CRD_int _Pos, CRD_int _Size, Color _Color)
 	{
-		// °´Ã¼°¡ »ý¼º °¡´É À§Ä¡ÀÎÁö È®ÀÎÇÏ°í »ý¼ºÇÑ´Ù.
+		// ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		boolean possible = true;
 			
-	    // »õ·Î ³õÀ» ºí·°ÀÇ À§Ä¡¿¡ °ãÄ¡´Â ¹°°ÇÀÌ ÀÖ´ÂÁö È®ÀÎ
+	    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½?ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		for(int i=0; i<_Size.x; i++)
 			for(int j=0; j <_Size.y; j++)
 				for(int k=0; k<_Size.z; k++)
 					if ( lattice[_Pos.x+i][_Pos.y+j][_Pos.z+k] == Lattice.lat_exist )
 						possible = false;
 		
-		// »õ·Î ³õÀ» ºí·° ¹Ø¿¡ ¹«¾ùÀÎ°¡ ÁöÅÊÇØÁÙ °ÍÀÌ ÀÖ´ÂÁö È®ÀÎ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½? ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		boolean bottom = false;
 		for(int i=0; i<_Size.x; i++)
 			for(int j=0; j<_Size.y; j++)
 				if ( lattice[_Pos.x+i][_Pos.y+j][_Pos.z-1] == Lattice.lat_exist ){
-					bottom = true; // ¹Ø¿¡ ¹«¾ùÀÎ°¡ ÁöÅÊÇØÁÙ °ÍÀÌ ÀÖ´Ù¸é true
+					bottom = true; // ï¿½Ø¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ true
 					break;
 				}
 		
 		possible = bottom;
 		
-		// »ý¼º°¡´ÉÇÑ À§Ä¡ÀÎ °æ¿ì
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if ( possible ){
-			// °´Ã¼¸¦ ¸¸µé°í
+			// ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 			ObjectVector.add(new Object(new CRD_int(_Pos.x, _Pos.y, _Pos.z), new CRD_int(_Size.x, _Size.y, _Size.z), new Color(_Color)));
-			// ¸¸µé¾îÁø ÀÚ¸®¿¡ »óÅÂ¸¦ Ç¥½ÃÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ Ç¥ï¿½ï¿½ï¿½Ñ´ï¿½.
 			for(int i=0; i<_Size.x; i++)
 				for(int j=0; j<_Size.y; j++)
 					for(int k=0; k<_Size.z; k++)
@@ -80,8 +82,8 @@ public class Lattice implements OnTouchInterface{
 	}
 
 	@Override
-	public void onTouch(Dot startPoint, Dot directVector) {
-		
+	public void onInputTouchDown(Dot startPoint, Dot directVector) {
+		// TODO Auto-generated method stub
 		CRD_float SP = new CRD_float((float) startPoint.x, (float) startPoint.y,(float) startPoint.z);
 		CRD_float DV = new CRD_float((float) directVector.x,(float) directVector.y,(float) directVector.z); 
 		
@@ -100,5 +102,35 @@ public class Lattice implements OnTouchInterface{
 		Color drawingColor = new Color(Object.drawingColor);
 		drawingColor.a = 0.1f;
 		this.tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
+	}
+
+	@Override
+	public void onInputTouchUp(Dot startPoint, Dot directVector) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onInputTouchCancel(Dot startPoint, Dot directVector) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDeleteTouchDown(Dot startPoint, Dot directVector) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDeleteTouchUp(Dot startPoint, Dot directVector) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDeleteTouchCancel(Dot startPoint, Dot directVector) {
+		// TODO Auto-generated method stub
+		
 	}
 }
