@@ -27,9 +27,9 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		menu.add(Menu.NONE, 0, Menu.NONE, "Undo").setIcon(android.R.drawable.ic_menu_revert);
 		menu.add(Menu.NONE, 1, Menu.NONE, "색깔");
-		menu.add(Menu.NONE, 2, Menu.NONE, "x");
-		menu.add(Menu.NONE, 3, Menu.NONE, "y");
-		menu.add(Menu.NONE, 4, Menu.NONE, "z");
+		menu.add(Menu.NONE, 2, Menu.NONE, "size_x");
+		menu.add(Menu.NONE, 3, Menu.NONE, "size_y");
+		menu.add(Menu.NONE, 4, Menu.NONE, "size_z");
 		
 		return true;
 	}
