@@ -1,6 +1,5 @@
 package com.example.gles_project3;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class TouchManager {
@@ -60,7 +59,7 @@ public class TouchManager {
 				isFirstSingleTouch = false;
 				isFirstDoubleTouch = true;
 				
-				onSingleTouchDown(currentSingleX, currentSingleY);
+//				onSingleTouchDown(currentSingleX, currentSingleY);
 				
 			} else if (event.getPointerCount() == 2) {
 				// median value of two touches
