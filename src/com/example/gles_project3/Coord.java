@@ -2,37 +2,19 @@ package com.example.gles_project3;
 
 public class Coord {
 
-	private float x;
-	private float y;
-
-	Coord(float _X, float _Y)
-	{
-		x = _X;
-		y = _Y;
+	public float x;
+	public float y;
+	public float z;
+	
+	Coord(float _X, float _Y, float _Z){
+		this.x = _X;
+		this.y = _Y;
+		this.z = _Z;
 	}
 	
-	Coord(Coord _CRD)
-	{
-		x = _CRD.x;
-		y = _CRD.y;
+	Coord(Coord _CRD){
+		this.x = _CRD.x;
+		this.y = _CRD.y;
+		this.z = _CRD.z;		
 	}
-	
-	
-	public void setCoord(float _X, float _Y)
-	{
-		x = _X;
-		y = _Y;
-	}
-	
-	public void move(float _dX, float _dY)
-	{
-		x += _dX;
-		y += _dY;
-	}
-	
-	public Coord getCoord()
-	{
-		return new Coord(x, y);
-	}
-
 }

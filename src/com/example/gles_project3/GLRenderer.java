@@ -19,6 +19,19 @@ public class GLRenderer implements Renderer {
 	private float tX = 0, tY = 0, tZ = -5f;
 	private float rX = 0, rY = 0, rZ = 0;
 
+	private float[] lightAmbient = {1.0f, 1.0f, 1.0f, 1.0f};
+	private float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
+	private float[] lightPosition = {0.0f, 0.0f, 50.0f, 0.0f};
+	private float[] lightSpecular = {0.5f, 0.5f, 0.5f, 1.0f};
+	
+	
+	/* The buffers for our light values ( NEW ) */
+	public FloatBuffer lightAmbientBuffer = getFloatBufferFromFloatArray(lightAmbient);
+	public FloatBuffer lightDiffuseBuffer = getFloatBufferFromFloatArray(lightDiffuse);
+	public FloatBuffer lightPositionBuffer = getFloatBufferFromFloatArray(lightPosition);
+	public FloatBuffer lightSpecularBuffer = getFloatBufferFromFloatArray(lightSpecular);	
+	
+	
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
 		TouchManager.getInstance().convertUVToRotation();
@@ -62,10 +75,10 @@ public class GLRenderer implements Renderer {
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		gl.glEnable(GL10.GL_LIGHT0);											//Enable Light 0 ( NEW )
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, staticVar.lightAmbientBuffer);		//Setup The Ambient Light ( NEW )
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, staticVar.lightDiffuseBuffer);		//Setup The Diffuse Light ( NEW )
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, staticVar.lightPositionBuffer);	//Position The Light ( NEW )
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_SPECULAR, staticVar.lightSpecularBuffer);	//Specular The Light ( NEW )		
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, lightAmbientBuffer);		//Setup The Ambient Light ( NEW )
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, lightDiffuseBuffer);		//Setup The Diffuse Light ( NEW )
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, lightPositionBuffer);	//Position The Light ( NEW )
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_SPECULAR, lightSpecularBuffer);	//Specular The Light ( NEW )		
  		gl.glEnable(GL10.GL_LIGHTING);
 		
 		gl.glEnable(GL10.GL_COLOR_MATERIAL);
