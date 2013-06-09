@@ -40,6 +40,8 @@ public class UnitCylinder {
 		normals[0] = 0.0f;
 		normals[1] = 0.0f;
 		normals[2] = 1.0f;
+		
+		
 		for ( int i = 0 ; i < 12 ; i++){
 			vertices[3 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
 			vertices[3 + i*3+1] = (float) ((float)  half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
@@ -48,7 +50,7 @@ public class UnitCylinder {
 			normals[3 + i*3+1] = 0.0f;
 			normals[3 + i*3+2] = 1.0f;
 		}
-		
+				
 		for ( int i = 0 ; i < 12 ; i++){
 			vertices[39 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
 			vertices[39 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
@@ -69,12 +71,12 @@ public class UnitCylinder {
 		for ( int i = 0 ; i < 12 ; i++)
 		{
 			indices[i*3] = 0;
-			if ( i == 11){ indices[i*3+1] = (byte) (i + 1 - 11);	}
-			else{	indices[i*3+1] = (byte) (i + 1);	}	
+			indices[i*3+1] = (byte) ( i + 1);
 			
-			if ( i == 11){ indices[i*3+2] = (byte) (i + 2 - 11);	}
+			if ( i == 11){ indices[i*3+2] = (byte) (i + 2 - 12);	}
 			else{	indices[i*3+2] = (byte) (i + 2);	}	
 		}
+		
 		for ( int i = 0 ; i < 12 ; i++)
 		{
 			indices[36+ i*6] = (byte) (13 + i);
@@ -103,7 +105,7 @@ public class UnitCylinder {
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 
 		//Set the face rotation
-		gl.glFrontFace(GL10.GL_CCW);
+		gl.glFrontFace(GL10.GL_CW);
 		
 		//Point to our buffers
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);

@@ -52,8 +52,8 @@ public class GLRenderer implements Renderer {
 		gl.glTranslatef(tX, tY, tZ);
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
+		
 		unitboard.draw(gl);
-		gl.glLoadIdentity();
 
 	}
 
@@ -62,7 +62,7 @@ public class GLRenderer implements Renderer {
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		GLU.gluPerspective(gl, 45.0f, (float) width/height , 1.0f, 30.f);
+		GLU.gluPerspective(gl, 45.0f, (float) width/height , 0.01f, 1000.0f);
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		

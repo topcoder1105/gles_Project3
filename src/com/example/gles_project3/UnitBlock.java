@@ -104,16 +104,6 @@ public class UnitBlock extends Object {
 			20, 21, 23, 20, 23, 22, 
 		};
 	
-	
-	/*
-	private byte indices[] = {
-			0, 1, 2, 2, 3, 0, // back face
-			4, 5, 6, 6, 7, 4, // front face
-			0, 3, 7, 7, 4, 0, // left face
-			1, 2, 6, 6, 5, 1, // right face
-			0, 4, 5, 5, 1, 0, // bottom face
-			3, 7, 6, 6, 2, 3, // up face	 	
-	}; */
 		
 	@Override
 	void draw(GL10 gl) {
