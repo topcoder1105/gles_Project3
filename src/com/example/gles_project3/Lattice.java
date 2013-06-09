@@ -35,6 +35,9 @@ public class Lattice implements OnTouchInterface{
 					lattice[i][j][k] = Lattice.lat_exist;
 		
 		TouchManager.getInstance().setOnTouchInterface(this);
+	
+		
+	
 	}
 		
 	void addBlock(CRD_int _Pos, CRD_int _Size, Color _Color)
