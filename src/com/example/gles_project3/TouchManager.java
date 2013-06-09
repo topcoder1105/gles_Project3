@@ -43,8 +43,7 @@ public class TouchManager {
 				double diffX = currentSingleX - prevSingleX;
 				double diffY = currentSingleY - prevSingleY;
 				
-				renderer.settX((float)(renderer.gettX() + diffX / 1000f));
-				renderer.settY((float)(renderer.gettY() - diffY / 1000f));
+				onSingleTouchMoved(diffX, diffY);
 				
 				// update prev position
 				prevSingleX = currentSingleX;
@@ -58,7 +57,12 @@ public class TouchManager {
 				currentDistance = Math.sqrt(currentDistance);
 				
 				if(!isFirstDoubleTouch) {
+					double diffX = currentDoubleX - prevDoubleX;
+					double diffY = currentDoubleY - prevDoubleY;
+					onDoubleTouchMoved(diffX, diffY);
 					
+					double ratio = currentDistance / prevDistance;
+					onDoubleTouchZoomed(ratio);
 				}
 				prevDoubleX = currentDoubleX;
 				prevDoubleY = currentDoubleY;
@@ -71,6 +75,20 @@ public class TouchManager {
 		return true;
 	}
 	
+	
+	// touch gesture manage
+	void onSingleTouchMoved(double dx, double dy) {
+		renderer.settX((float)(renderer.gettX() + dx / 1000f));
+		renderer.settY((float)(renderer.gettY() - dy / 1000f));
+	}
+	
+	void onDoubleTouchMoved(double dx, double dy) {
+		
+	}
+	
+	void onDoubleTouchZoomed(double ratio) {
+		
+	}
 	
 	
 	// renderer getter and setter
