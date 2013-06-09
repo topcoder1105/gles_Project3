@@ -1,8 +1,5 @@
 package com.example.gles_project3;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -16,6 +13,7 @@ public class GLRenderer implements Renderer {
 	Vector<Object> object;
 	
 	private float tX = 0, tY = 0, tZ = -5f;
+	private float rX = 0, rY = 0;
 
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
@@ -31,6 +29,8 @@ public class GLRenderer implements Renderer {
 		gl.glLoadIdentity();
 //		gl.glTranslatef(0.5f, -0.5f, -5.0f);
 		gl.glTranslatef(tX, tY, tZ);
+		gl.glRotatef(rX, 1, 0, 0);
+		gl.glRotatef(rY, 0, 1, 0);
 		object.get(0).draw(gl);
 	}
 
@@ -79,6 +79,22 @@ public class GLRenderer implements Renderer {
 
 	public void settZ(float tZ) {
 		this.tZ = tZ;
+	}
+
+	public float getrX() {
+		return rX;
+	}
+
+	public void setrX(float rX) {
+		this.rX = rX;
+	}
+
+	public float getrY() {
+		return rY;
+	}
+
+	public void setrY(float rY) {
+		this.rY = rY;
 	}
 	
 }
