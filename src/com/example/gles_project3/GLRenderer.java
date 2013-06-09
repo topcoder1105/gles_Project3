@@ -37,11 +37,7 @@ public class GLRenderer implements Renderer {
 		TouchManager.getInstance().convertUVToRotation();
 		
 		lattice = new Lattice();
-		lattice.addBlock(1, 1, 1, 2, 3, 3, 0);
-		lattice.addBlock(1, 1, 4, 2, 3, 3, 2);
-		lattice.addBlock(1, 1, 7, 2, 3, 3, 3);
-		lattice.addBlock(2, 3, 10, 2, 3, 3, 4);
-		lattice.addBlock(10, 10, 1, 2, 3, 3, 5);
+		lattice.addBlock(new CRD_int(1, 1, 1), new CRD_int(2,3,4), new Color(Color.yellow));
 		
 	}	
 	

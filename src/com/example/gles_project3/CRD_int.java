@@ -1,18 +1,18 @@
 package com.example.gles_project3;
 
-public class Coord {
+public class CRD_int {
 
-	public float x;
-	public float y;
-	public float z;
+	public int x;
+	public int y;
+	public int z;
 	
-	Coord(float _X, float _Y, float _Z){
+	CRD_int(int _X, int _Y, int _Z){
 		this.x = _X;
 		this.y = _Y;
 		this.z = _Z;
 	}
 	
-	Coord(Coord _CRD){
+	CRD_int(CRD_int _CRD){
 		this.x = _CRD.x;
 		this.y = _CRD.y;
 		this.z = _CRD.z;		
