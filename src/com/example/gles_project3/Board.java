@@ -14,18 +14,48 @@ public class Board {
 	float sizeY;
 	float sizeZ;
 	
-	Board(int _PosX, int _PosY, int _PosZ, int _SizeX, int _SizeY, int _SizeZ)
+	Color red = new Color(100,0,0,255);
+	Color green = new Color(0,100,0,255);
+	Color blue = new Color(0,0,100,255);
+	Color yellow = new Color(100,100,0,255);
+	Color skyblue = new Color(0,100,100,255);
+	Color purple = new Color(100,0,100,255);
+
+	
+	Board(int _PosX, int _PosY, int _PosZ, int _SizeX, int _SizeY, int _SizeZ, int _Color)
 	{
 		block = new UnitBoard[_SizeX][_SizeY][_SizeZ];		
 	
 		sizeX = _SizeX;
 		sizeY = _SizeY;
 		sizeZ = _SizeZ;
-
+	
+		Color color = new Color(0,0,0,255);
+		switch ( _Color )
+		{
+			case 0:
+				color = new Color(red);
+				break;
+			case 1:
+				color = new Color(green);
+				break;
+			case 2:
+				color = new Color(blue);
+				break;
+			case 3:
+				color = new Color(yellow);
+				break;
+			case 4:
+				color = new Color(skyblue);
+				break;
+			case 5:
+				color = new Color(purple);		
+		}
+		
 		for ( int i = 0 ; i < sizeX; i++){
 			for ( int j = 0 ; j < sizeY; j++){
 				for ( int k = 0 ; k < sizeZ; k++){
-					block[i][j][k] = new UnitBoard(new Color(255,0,0,255));
+					block[i][j][k] = new UnitBoard(color);
 				}
 			}
 		}

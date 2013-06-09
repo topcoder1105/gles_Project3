@@ -101,9 +101,9 @@ public class UnitCylinder {
 	{
 		//Enable the vertex, texture and normal state
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-
+		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+		
 		//Set the face rotation
 		gl.glFrontFace(GL10.GL_CW);
 		
