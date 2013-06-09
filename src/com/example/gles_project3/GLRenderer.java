@@ -57,6 +57,17 @@ public class GLRenderer implements Renderer {
 
 	}
 
+	private int width;
+	private int height;
+	
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		gl.glViewport(0, 0, width, height);
@@ -65,7 +76,8 @@ public class GLRenderer implements Renderer {
 		GLU.gluPerspective(gl, 45.0f, (float) width/height , 0.01f, 1000.0f);
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		
+		this.width = width;
+		this.height = height;
 	}
 
 	@Override

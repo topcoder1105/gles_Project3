@@ -1,5 +1,6 @@
 package com.example.gles_project3;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class TouchManager {
@@ -58,6 +59,8 @@ public class TouchManager {
 				isFirstSingleTouch = false;
 				isFirstDoubleTouch = true;
 				
+				onSingleTouchDown(currentSingleX, currentSingleY);
+				
 			} else if (event.getPointerCount() == 2) {
 				// median value of two touches
 				double currentDoubleX = (event.getX(0) + event.getX(1)) / 2;
@@ -91,8 +94,7 @@ public class TouchManager {
 	void onSingleTouchMoved(double dx, double dy) {
 //		renderer.settX((float)(renderer.gettX() + dx / 1000f * -renderer.gettZ()));
 //		renderer.settY((float)(renderer.gettY() - dy / 1000f * -renderer.gettZ()));
-		
-		onSingleTouchDown(dx, dy);
+
 	}
 	
 	void onSingleTouchDown(double dx, double dy) {
@@ -102,11 +104,33 @@ public class TouchManager {
 //			renderer.setrX((float) -rotation.x);
 //			renderer.setrY((float) rotation.y);
 //			renderer.setrZ((float) -rotation.z);
+			double px = dx * renderer.gettZ() / renderer.getWidth() - renderer.gettZ() / 2;
+			double py = (renderer.getHeight() - dy) * renderer.gettZ() / renderer.getHeight() - renderer.gettZ() / 2 ;
+
+//			Log.e("TEST", "p : " + px + " " + py);
+//			Log.e("TEST", "size : " + renderer.getWidth() + " " + renderer.getHeight());
 			
-			Dot start_point = new Dot(0, 0, -renderer.gettZ());
-			Dot direct_vector = new Dot(0, 0, -1);
-			onTouchInterface.onInputTouchDown(start_point.rotate(rotation.z, 0, 0, 1).rotate(-rotation.y, 0, 1, 0).rotate(rotation.x, 1, 0, 0)
-					, direct_vector.rotate(rotation.z, 0, 0, 1).rotate(-rotation.y, 0, 1, 0).rotate(rotation.x, 1, 0, 0));
+			Dot start_point = new Dot(-px, -py, 0);
+			Dot direct_vector = new Dot(0, 0, 1);
+			
+//			Dot n = new Dot(start_point.x, start_point.y, start_point.z);
+//			Dot d = new Dot(direct_vector.x, direct_vector.y, direct_vector.z);
+			
+			onTouchInterface.onInputTouchDown(start_point, direct_vector);
+			onTouchInterface.onInputTouchDown(start_point.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0)
+					, direct_vector.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0));
+			
+//			Dot t = new Dot(1,0,0).rotate_with_degree(90, 0, 0, 1);
+//			Log.e("TEST", "rotation : " + t.x + " " + t.y + " " + t.z);
+//			Log.e("TEST", "start_point : " + start_point.x + " " + start_point.y + " " + start_point.z);
+//			
+//			Log.e("TEST", "n : " + n.x + " " + n.y + " " + n.z);
+//Log.e("TEST", "direct_vector : "  + direct_vector.x + " " + direct_vector.y + " " + direct_vector.z);
+//			
+//			Log.e("TEST", "d : " + d.x + " " + d.y + " " + d.z);
+//Log.e("TEST", "------------------ ");
+			
+			
 		}
 	}
 	

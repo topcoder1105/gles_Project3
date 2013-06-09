@@ -49,6 +49,14 @@ public class Dot {
 	public Dot rotate(double theta, double x, double y, double z) {
 		return rotate(theta, new Dot(x, y, z));
 	}
+	
+	public Dot rotate_with_degree(double degree, double x, double y, double z) {
+		return rotate(MathUtil.degreeToRadian(degree), x, y, z);
+	}
+	
+	public Dot rotate_with_degree(double degree, Dot p) {
+		return rotate(MathUtil.degreeToRadian(degree), p);
+	}
 
 	public double angle(Dot pt) {
 		double radian = Math.acos(inner_product(pt) / (this.length() * pt.length()));
