@@ -3,7 +3,6 @@ package com.example.gles_project3;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -18,7 +17,7 @@ public class GLRenderer implements Renderer {
 	private Lattice lattice;
 	
 	private float tX = 0, tY = 0, tZ = -5f;
-	private float rX = 0, rY = 0;
+	private float rX = 0, rY = 0, rZ = 0;
 
 	
 	private float[] lightAmbient = {1.0f, 0.1f, 0.1f, 0.1f};
@@ -54,6 +53,7 @@ public class GLRenderer implements Renderer {
 		
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
+		gl.glRotatef(rZ, 0, 0, 1);
 		
 //		gl.glTranslatef(0, 0, 6);
 		
@@ -133,6 +133,14 @@ public class GLRenderer implements Renderer {
 		this.rY = rY;
 	}
 	
+	public float getrZ() {
+		return rZ;
+	}
+
+	public void setrZ(float rZ) {
+		this.rZ = rZ;
+	}
+
 	FloatBuffer getFloatBufferFromFloatArray(float array[]) {
 		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
 		tempBuffer.order(ByteOrder.nativeOrder());
