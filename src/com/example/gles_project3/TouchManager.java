@@ -1,6 +1,5 @@
 package com.example.gles_project3;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class TouchManager {
@@ -13,10 +12,12 @@ public class TouchManager {
 	}
 	
 	Dot u, v; // world coordinate
+	Dot l;
 	public TouchManager() {
 		renderer = null;
 		u = new Dot(0, 1, 0);
 		v = new Dot(1, 0, 0);
+		l = new Dot(0, 0, 1);
 	}
 	
 	// touch manage
@@ -98,11 +99,11 @@ public class TouchManager {
 		double drx = dy / 10f;
 		double dry = dx / 10f;
 		
-		u.rotate(u.degreeToRadian(drx), 1, 0, 0);
-		u.rotate(u.degreeToRadian(dry), 0, 1, 0);
+		u.rotate(MathUtil.degreeToRadian(drx), 1, 0, 0);
+		u.rotate(MathUtil.degreeToRadian(dry), 0, 1, 0);
 		
-		v.rotate(v.degreeToRadian(drx), 1, 0, 0);
-		v.rotate(v.degreeToRadian(dry), 0, 1, 0);
+		v.rotate(MathUtil.degreeToRadian(drx), 1, 0, 0);
+		v.rotate(MathUtil.degreeToRadian(dry), 0, 1, 0);
 		
 		// z=0 angle
 		convertUVToRotation();
@@ -130,10 +131,10 @@ public class TouchManager {
 		Dot nn = new Dot(u.x, u.y, 0);
 		double rz = nn.angle(new Dot(0, 1, 0));
 		if(nn.x < 0) rz = 360 - rz;
-		Dot nu = new Dot(u.x, u.y, u.z).rotate(u.degreeToRadian(rz), 0, 0, 1);
+		Dot nu = new Dot(u.x, u.y, u.z).rotate(MathUtil.degreeToRadian(rz), 0, 0, 1);
 		double rx = nu.angle(new Dot(0, 1, 0));
 		if(nu.z < 0) rx = 360 - rx;
-		Dot nv = new Dot(v.x, v.y, v.z).rotate(u.degreeToRadian(rz), 0, 0, 1).rotate(u.degreeToRadian(rx), 1, 0, 0);
+		Dot nv = new Dot(v.x, v.y, v.z).rotate(MathUtil.degreeToRadian(rz), 0, 0, 1).rotate(MathUtil.degreeToRadian(rx), 1, 0, 0);
 		double ry = nv.angle(new Dot(1, 0, 0));
 		if(nv.z < 0) ry = 360 - ry;
 		

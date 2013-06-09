@@ -18,15 +18,7 @@ public class Dot {
 	}
 
 	public double length() {
-		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-	}
-
-	public double degreeToRadian(double angle) {
-		return angle * Math.PI / 180;
-	}
-	
-	public double radianToDegree(double theta) {
-		return theta * 180 / Math.PI;
+		return MathUtil.calculate_distance(this, new Dot(0,0,0));
 	}
 	
 	public Dot rotate(double theta, Dot normalVector) {
@@ -60,10 +52,10 @@ public class Dot {
 
 	public double angle(Dot pt) {
 		double radian = Math.acos(inner_product(pt) / (this.length() * pt.length()));
-		return radianToDegree(radian);
+		return MathUtil.radianToDegree(radian);
 	}
 
 	public double inner_product(Dot pt) {
-		return this.x * pt.x + this.y * pt.y + this.z * pt.z;
+		return MathUtil.inner_product(this, pt);
 	}
 }
