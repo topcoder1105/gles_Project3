@@ -50,10 +50,15 @@ public class GLRenderer implements Renderer {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
 
-
 		gl.glTranslatef(tX, tY, tZ);
+		
+		
+		gl.glTranslatef(0, 0, -6);
+		
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
+		gl.glTranslatef(0, 0, 6);
+		
 		board.draw(gl);
 		unitboard.draw(gl);
 

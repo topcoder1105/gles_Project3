@@ -1,6 +1,5 @@
 package com.example.gles_project3;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class TouchManager {
@@ -87,21 +86,21 @@ public class TouchManager {
 	
 	// touch gesture manage
 	void onSingleTouchMoved(double dx, double dy) {
-		renderer.settX((float)(renderer.gettX() + dx / 1000f));
-		renderer.settY((float)(renderer.gettY() - dy / 1000f));
+		renderer.settX((float)(renderer.gettX() + dx / 1000f * -renderer.gettZ()));
+		renderer.settY((float)(renderer.gettY() - dy / 1000f * -renderer.gettZ()));
 	}
 	
 	void onDoubleTouchMoved(double dx, double dy) {
-		renderer.setrX((float)(renderer.getrX() + dy));
-		renderer.setrY((float)(renderer.getrY() + dx));
+		renderer.setrX((float)(renderer.getrX() + dy / 10f));
+		renderer.setrY((float)(renderer.getrY() + dx / 10f));
 	}
 	
 	void onDoubleTouchZoomed(double distance) {
 		renderer.settZ((float) (renderer.gettZ() + distance / 100f));
 		
 		//boundary
-		if(renderer.gettZ() > -3)renderer.settZ(-3);
-		if(renderer.gettZ() < -100)renderer.settZ(-100);
+		if(renderer.gettZ() > -1f)renderer.settZ(-1f);
+		if(renderer.gettZ() < -20)renderer.settZ(-20);
 
 	}
 	
