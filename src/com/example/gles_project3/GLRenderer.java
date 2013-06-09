@@ -1,7 +1,5 @@
 package com.example.gles_project3;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -26,10 +24,10 @@ public class GLRenderer implements Renderer {
 	
 	
 	/* The buffers for our light values ( NEW ) */
-	public FloatBuffer lightAmbientBuffer = getFloatBufferFromFloatArray(lightAmbient);
-	public FloatBuffer lightDiffuseBuffer = getFloatBufferFromFloatArray(lightDiffuse);
-	public FloatBuffer lightPositionBuffer = getFloatBufferFromFloatArray(lightPosition);
-	public FloatBuffer lightSpecularBuffer = getFloatBufferFromFloatArray(lightSpecular);	
+	public FloatBuffer lightAmbientBuffer = UnitObject.getFloatBufferFromFloatArray(lightAmbient);
+	public FloatBuffer lightDiffuseBuffer = UnitObject.getFloatBufferFromFloatArray(lightDiffuse);
+	public FloatBuffer lightPositionBuffer = UnitObject.getFloatBufferFromFloatArray(lightPosition);
+	public FloatBuffer lightSpecularBuffer = UnitObject.getFloatBufferFromFloatArray(lightSpecular);	
 	
 	
 	public GLRenderer(GLSurfaceView glSurfaceView) {
@@ -152,12 +150,5 @@ public class GLRenderer implements Renderer {
 		this.rZ = rZ;
 	}
 
-	FloatBuffer getFloatBufferFromFloatArray(float array[]) {
-		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
-		tempBuffer.order(ByteOrder.nativeOrder());
-		FloatBuffer buffer = tempBuffer.asFloatBuffer();
-		buffer.put(array);
-		buffer.position(0);
-		return buffer;
-	}
+	
 }
