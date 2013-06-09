@@ -9,7 +9,6 @@ import javax.microedition.khronos.opengles.GL10;
 public class UnitObject {
 
 	private FloatBuffer mVertexBuffer = null;
-	private FloatBuffer mColorBuffer = null;
 	private FloatBuffer mNormalBuffer = null;
 	private ByteBuffer mIndexBuffer = null;
 	
@@ -121,7 +120,6 @@ public class UnitObject {
 		}
 		
 		mVertexBuffer = getFloatBufferFromFloatArray(vertices);
-		mColorBuffer = getFloatBufferFromFloatArray(colors);
 		mNormalBuffer = getFloatBufferFromFloatArray(normals);
 		mIndexBuffer = getByteBufferFromByteArray(indices);
 		
@@ -134,7 +132,8 @@ public class UnitObject {
 	static FloatBuffer glass_ambientbuffer = getFloatBufferFromFloatArray(glass_ambient);
     static FloatBuffer glass_diffusebuffer = getFloatBufferFromFloatArray(glass_diffuse);
     static FloatBuffer glass_specularbuffer = getFloatBufferFromFloatArray(glass_specular);
-	static FloatBuffer getFloatBufferFromFloatArray(float array[]) {
+	
+    static FloatBuffer getFloatBufferFromFloatArray(float array[]) {
 		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
 		tempBuffer.order(ByteOrder.nativeOrder());
 		FloatBuffer buffer = tempBuffer.asFloatBuffer();
@@ -142,10 +141,8 @@ public class UnitObject {
 		buffer.position(0);
 		return buffer;
 	}
-
     
-    static void Material_Color(GL10 gl, Color _Color)
-    {
+    static void Material_Color(GL10 gl, Color _Color){
     	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_AMBIENT, glass_ambientbuffer);
     	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_DIFFUSE, glass_diffusebuffer);
     	gl.glMaterialfv(GL10.GL_FRONT, GL10.GL_SPECULAR, glass_specularbuffer);
@@ -161,8 +158,8 @@ public class UnitObject {
 
 		//Set the face rotation
 		gl.glFrontFace(GL10.GL_CW);
+
 		//Point to our buffers
-		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
 		gl.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
 		Material_Color(gl, new Color(this.CLR) );
@@ -180,19 +177,6 @@ public class UnitObject {
 		gl.glPopMatrix();
 	}
 
-
-	
-	/*
-	FloatBuffer getFloatBufferFromFloatArray(float array[]) {
-		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
-		tempBuffer.order(ByteOrder.nativeOrder());
-		FloatBuffer buffer = tempBuffer.asFloatBuffer();
-		buffer.put(array);
-		buffer.position(0);
-		return buffer;
-	}
-	*/
-	
 	ByteBuffer getByteBufferFromByteArray( byte array[]) {
 		ByteBuffer buffer = ByteBuffer.allocateDirect(array.length);
 		buffer.put(array);

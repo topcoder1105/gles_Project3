@@ -37,16 +37,13 @@ public class Object {
 	
 	
 	public void draw(GL10 gl){
-		
-		for(int i=0; i<this.objectData.size.x; i++){
-			for(int j=0; j<this.objectData.size.y; j++){
+		for(int i=0; i<this.objectData.size.x; i++)
+			for(int j=0; j<this.objectData.size.y; j++)
 				for(int k=0 ; k<this.objectData.size.z; k++){
 					gl.glPushMatrix();
 					gl.glTranslatef((this.objectData.pos.x + i)*UnitObject.unit_size, (this.objectData.pos.y + j)*UnitObject.unit_size, (this.objectData.pos.z + k)*UnitObject.unit_height);
 					block[i][j][k].draw(gl);
 					gl.glPopMatrix();
 				}
-			}
-		}
 	}
 }
