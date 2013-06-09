@@ -6,23 +6,32 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class Lattice {
 
-	static int lattice[][][] = new int[100][100][100];
+	static int lattice[][][] = new int[20][20][30];
 	
 	
 	Vector<Board> BoardVector = new Vector<Board>();
 		
 	Lattice()
 	{	
-		for ( int i = 0 ; i < 100; i++ ){
-			for ( int j = 0 ; j < 100; j++){
-				for ( int k = 0 ; k < 100; k++){
+		for ( int i = 0 ; i < 20; i++ ){
+			for ( int j = 0 ; j < 20; j++){
+				for ( int k = 0 ; k < 30; k++){
 					lattice[i][j][k] = 0;
 				}
 			}
 		}
 		
-		
+		// 바닥면 만들고 해당 지역에 1로 체크
+		BoardVector.add(new Board(0, 0, 0, 20, 20, 1));
+		for(int i = 0 ; i < 20; i++){
+			for(int j = 0 ; j < 20; j++){
+				for(int k=0; k < 1; k++){
+					lattice[i][j][k] = 1;
+				}
+			}
+		}
 	}
+	
 	
 	void addBlock(int _PosX, int _PosY, int _PosZ, int _SizeX, int _SizeY, int _SizeZ)
 	{
@@ -33,7 +42,7 @@ public class Lattice {
 		for(int i = 0 ; i < _SizeX; i++){
 			for(int j = 0 ; j < _SizeY; j++){
 				for(int k=0; k<_SizeZ; k++){
-					if ( lattice[_PosX+_SizeX][_PosY+_SizeY][_PosZ+_SizeZ] == 1 )
+					if ( lattice[_PosX+i][_PosY+j][_PosZ+k] == 1 )
 						possible = false;
 				}
 			}
@@ -44,7 +53,7 @@ public class Lattice {
 		for(int i = 0 ; i < _SizeX; i++){
 			for(int j = 0 ; j < _SizeY; j++){
 				for(int k=0; k<_SizeZ; k++){
-					if ( lattice[_PosX+_SizeX][_PosY+_SizeY][_PosZ+_SizeZ - 1] == 1 )
+					if ( lattice[_PosX+i][_PosY+j][_PosZ+ k - 1] == 1 )
 						bottom = true; // 밑에 무엇인가 지탱해줄 것이 있다면 true
 				}
 			}
@@ -58,7 +67,7 @@ public class Lattice {
 			for(int i = 0 ; i < _SizeX; i++){
 				for(int j = 0 ; j < _SizeY; j++){
 					for(int k=0; k<_SizeZ; k++){
-						lattice[_PosX+_SizeX][_PosY+_SizeY][_PosZ+_SizeZ] = 1;
+						lattice[_PosX+i][_PosY+j][_PosZ+k] = 1;
 					}
 				}
 			}

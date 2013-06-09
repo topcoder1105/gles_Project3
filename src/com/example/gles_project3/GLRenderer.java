@@ -38,7 +38,7 @@ public class GLRenderer implements Renderer {
 		
 		lattice = new Lattice();
 		lattice.addBlock(1, 1, 1, 2, 3, 4);
-		lattice.addBlock(2, 2, 5, 1, 3, 4);
+		lattice.addBlock(2, 2, 6, 2, 3, 4);
 		
 	}	
 	

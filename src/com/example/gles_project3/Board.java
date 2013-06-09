@@ -8,7 +8,7 @@ public class Board {
 	
 	float posX = -1.0f;
 	float posY = -1.0f;
-	float posZ = -6.0f;
+	float posZ = -3.0f;
 	float sizeX;
 	
 	float sizeY;
@@ -30,9 +30,9 @@ public class Board {
 			}
 		}
 		
-		posX += (float) _PosX*UnitBoard.unit_size;
-		posY += (float) _PosY*UnitBoard.unit_size;
-		posZ += (float) _PosZ*UnitBoard.unit_height;
+		posX += (float) (_PosX+1)*UnitBoard.unit_size;
+		posY += (float) (_PosY+1)*UnitBoard.unit_size;
+		posZ += (float) (_PosZ+1)*UnitBoard.unit_height;
 	
 	}
 	
