@@ -17,7 +17,7 @@ public class GLRenderer implements Renderer {
 	private Lattice lattice;
 
 	private float tX = 0, tY = 0, tZ = -5f;
-	private float rX = 0, rY = 0;
+	private float rX = 0, rY = 0, rZ = 0;
 
 	private float[] lightAmbient = {1.0f, 1.0f, 1.0f, 1.0f};
 	private float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -34,6 +34,7 @@ public class GLRenderer implements Renderer {
 	
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
+		TouchManager.getInstance().convertUVToRotation();
 		
 		lattice = new Lattice();
 		lattice.addBlock(new CRD_int(1, 1, 1), new CRD_int(2,3,4), new Color(Color.yellow));
@@ -49,6 +50,9 @@ public class GLRenderer implements Renderer {
 				
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
+		gl.glRotatef(rZ, 0, 0, 1);
+		
+//		gl.glTranslatef(0, 0, 6);
 		lattice.draw(gl);
 
 	}
@@ -124,6 +128,14 @@ public class GLRenderer implements Renderer {
 		this.rY = rY;
 	}
 	
+	public float getrZ() {
+		return rZ;
+	}
+
+	public void setrZ(float rZ) {
+		this.rZ = rZ;
+	}
+
 	FloatBuffer getFloatBufferFromFloatArray(float array[]) {
 		ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
 		tempBuffer.order(ByteOrder.nativeOrder());
