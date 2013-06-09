@@ -14,7 +14,7 @@ public class GLRenderer implements Renderer {
 
 	private Lattice lattice;
 
-	private float tX = 0, tY = 0, tZ = -5f;
+	private float tX = -2f, tY = -2f, tZ = -5f;
 	private float rX = 0, rY = 0, rZ = 0;
 
 	private float[] lightAmbient = {1.0f, 1.0f, 1.0f, 0.3f};
@@ -42,13 +42,13 @@ public class GLRenderer implements Renderer {
 		gl.glLoadIdentity();
 
 		gl.glTranslatef(tX, tY, tZ);
-				
-		
+
+		gl.glTranslatef(-tX, -tY, 0);
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
 		gl.glRotatef(rZ, 0, 0, 1);
+		gl.glTranslatef(tX, tY, 0);
 		
-//		gl.glTranslatef(0, 0, 6);
 		lattice.draw(gl);
 
 	}
