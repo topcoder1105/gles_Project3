@@ -49,11 +49,13 @@ public class GLRenderer implements Renderer {
 		gl.glLoadIdentity();
 
 //		gl.glTranslatef(0.5f, -0.5f, -5.0f);
-		gl.glTranslatef(tX, tY, tZ);
+
+		gl.glRotatef(rX, 1, 0, 0);
+		gl.glRotatef(rY, 0, 1, 0);
 		unitboard.draw(gl);
 		gl.glLoadIdentity();
-//		object.get(0).draw(gl);
-}
+
+	}
 
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
