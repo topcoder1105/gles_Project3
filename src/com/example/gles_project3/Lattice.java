@@ -4,6 +4,8 @@ import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.util.Log;
+
 public class Lattice implements OnTouchInterface{
 	
 
@@ -155,7 +157,7 @@ public class Lattice implements OnTouchInterface{
 		drawingColor.b *= 2.55f;
 		
 		tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
-		
+		Log.e("TEST", "add");
 	}
 	
 	
@@ -163,6 +165,7 @@ public class Lattice implements OnTouchInterface{
 	public void onInputTouchUp(Dot startPoint, Dot directVector) {
 		this.addBlock(tmpObject.objectData.pos, tmpObject.objectData.size, Object.drawingColor);
 		tmpObject = null;
+		Log.e("TEST", "Null");
 	}
 
 	@Override

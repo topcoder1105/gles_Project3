@@ -23,17 +23,20 @@ public class TouchManager {
 	// touch manage
 	private boolean isFirstSingleTouch = true;
 	private boolean isFirstDoubleTouch = true;
+	private boolean isEnded = true;
 	
 	private double prevSingleX, prevSingleY;
 	private double prevDoubleX, prevDoubleY, prevDistance = -1;
 	public boolean onTouchEvent(MotionEvent event) {
 		switch(event.getAction()) {
 		case MotionEvent.ACTION_UP:
+			isEnded = true;
 			if(!isFirstSingleTouch && isFirstDoubleTouch)
 				onSingleTouchUp(event.getX(), event.getY());
 		case MotionEvent.ACTION_DOWN:
 			isFirstSingleTouch = false;
 			isFirstDoubleTouch = true;
+			isEnded = false;
 			prevDistance = -1;
 			prevSingleX = event.getX();
 			prevSingleY = event.getY();
@@ -59,7 +62,8 @@ public class TouchManager {
 				isFirstSingleTouch = false;
 				isFirstDoubleTouch = true;
 				
-				onSingleTouchDown(currentSingleX, currentSingleY);
+				if (!isEnded)
+					onSingleTouchDown(currentSingleX, currentSingleY);
 				
 			} else if (event.getPointerCount() == 2) {
 				// median value of two touches
