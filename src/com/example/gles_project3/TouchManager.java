@@ -28,12 +28,11 @@ public class TouchManager {
 			isFirstSingleTouch = false;
 			isFirstDoubleTouch = false;
 			prevDistance = -1;
-			
-Log.e("TEST", " : " + event.getPointerCount());
 			break;
 		case MotionEvent.ACTION_DOWN:
 			isFirstSingleTouch = true;
 			isFirstDoubleTouch = true;
+			prevDistance = -1;
 			prevSingleX = event.getX();
 			prevSingleY = event.getY();
 			break;
@@ -98,7 +97,11 @@ Log.e("TEST", " : " + event.getPointerCount());
 	}
 	
 	void onDoubleTouchZoomed(double distance) {
-		renderer.settZ((float) (renderer.gettZ() + distance / 80f));
+		renderer.settZ((float) (renderer.gettZ() + distance / 100f));
+		
+		//boundary
+		if(renderer.gettZ() > -3)renderer.settZ(-3);
+		if(renderer.gettZ() < -100)renderer.settZ(-100);
 
 	}
 	
