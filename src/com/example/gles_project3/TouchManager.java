@@ -28,17 +28,15 @@ public class TouchManager {
 	private double prevDoubleX, prevDoubleY, prevDistance = -1;
 	public boolean onTouchEvent(MotionEvent event) {
 		switch(event.getAction()) {
-		case MotionEvent.ACTION_UP:			
-			isFirstSingleTouch = false;
-			isFirstDoubleTouch = false;
-			prevDistance = -1;
-			break;
+		case MotionEvent.ACTION_UP:
+			
 		case MotionEvent.ACTION_DOWN:
 			isFirstSingleTouch = true;
 			isFirstDoubleTouch = true;
 			prevDistance = -1;
 			prevSingleX = event.getX();
 			prevSingleY = event.getY();
+			onSingleTouchDown(event.getX(), event.getY());
 			break;
 		case MotionEvent.ACTION_MOVE:
 			if (event.getPointerCount() == 1) {
@@ -91,9 +89,35 @@ public class TouchManager {
 	
 	// touch gesture manage
 	void onSingleTouchMoved(double dx, double dy) {
-		renderer.settX((float)(renderer.gettX() + dx / 1000f * -renderer.gettZ()));
-		renderer.settY((float)(renderer.gettY() - dy / 1000f * -renderer.gettZ()));
+//		renderer.settX((float)(renderer.gettX() + dx / 1000f * -renderer.gettZ()));
+//		renderer.settY((float)(renderer.gettY() - dy / 1000f * -renderer.gettZ()));
+		
+		onSingleTouchDown(dx, dy);
 	}
+	
+	void onSingleTouchDown(double dx, double dy) {
+		if (onTouchInterface != null) {
+			Dot rotation = convertUVToRotation();
+			
+//			renderer.setrX((float) -rotation.x);
+//			renderer.setrY((float) rotation.y);
+//			renderer.setrZ((float) -rotation.z);
+			
+			Dot start_point = new Dot(0, 0, -renderer.gettZ());
+			Dot direct_vector = new Dot(0, 0, -1);
+			onTouchInterface.onInputTouchDown(start_point.rotate(rotation.z, 0, 0, 1).rotate(-rotation.y, 0, 1, 0).rotate(rotation.x, 1, 0, 0)
+					, direct_vector.rotate(rotation.z, 0, 0, 1).rotate(-rotation.y, 0, 1, 0).rotate(rotation.x, 1, 0, 0));
+		}
+	}
+	
+	void onSingleTouchUp(double dx, double dy) {
+		
+	}
+	
+	void onSingleTouchCancel(double dx, double dy) {
+		
+	}
+	
 	
 	void onDoubleTouchMoved(double dx, double dy) {
 		double drx = dy / 10f;
@@ -106,7 +130,11 @@ public class TouchManager {
 		v.rotate(MathUtil.degreeToRadian(dry), 0, 1, 0);
 		
 		// z=0 angle
-		convertUVToRotation();
+		Dot rotation = convertUVToRotation();
+		
+		renderer.setrX((float) -rotation.x);
+		renderer.setrY((float) rotation.y);
+		renderer.setrZ((float) -rotation.z);
 		
 //		Log.e("TEST", rx + " " + ry + " " + rz);
 //		Log.e("TEST", "u : " + u.x + " " + u.y + " " + u.z);
@@ -126,7 +154,7 @@ public class TouchManager {
 	
 	
 	// convert uv to rotation
-	public void convertUVToRotation() {
+	public Dot convertUVToRotation() {
 		// z=0 angle
 		Dot nn = new Dot(u.x, u.y, 0);
 		double rz = nn.angle(new Dot(0, 1, 0));
@@ -138,20 +166,20 @@ public class TouchManager {
 		double ry = nv.angle(new Dot(1, 0, 0));
 		if(nv.z < 0) ry = 360 - ry;
 		
-		renderer.setrX((float) -rx);
-		renderer.setrY((float) ry);
-		renderer.setrZ((float) -rz);
+		return new Dot(rx, ry, rz);
 	}
-	
 	
 	// renderer getter and setter
-	private GLRenderer renderer;
+	private GLRenderer renderer = null;
 	
-	public GLRenderer getRenderer() {
-		return renderer;
-	}
-
 	public void setRenderer(GLRenderer renderer) {
 		this.renderer = renderer;
+	}
+	
+	// onTouchInterface getter and setter
+	private OnTouchInterface onTouchInterface = null;
+
+	public void setOnTouchInterface(OnTouchInterface onTouchInterface) {
+		this.onTouchInterface = onTouchInterface;
 	}
 }
