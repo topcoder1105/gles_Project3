@@ -34,6 +34,7 @@ public class GLRenderer implements Renderer {
 
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
+		TouchManager.getInstance().convertUVToRotation();
 		
 		lattice = new Lattice();
 		lattice.addBlock(1, 1, 1, 2, 3, 4);
