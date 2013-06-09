@@ -14,6 +14,8 @@ import android.opengl.GLU;
 public class GLRenderer implements Renderer {
 
 	Vector<Object> object;
+	
+	private float tX = 0, tY = 0, tZ = -5f;
 
 	UnitBoard unitboard = null;
 	
@@ -33,7 +35,13 @@ public class GLRenderer implements Renderer {
 
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
+<<<<<<< HEAD
 				
+=======
+		
+		object = new Vector<Object>();
+		object.add(new UnitBlock());
+>>>>>>> 563c61fc155def45272b182aeeace4c0b6e61d23
 		
 //		object = new Vector<Object>();
 //		object.add(new UnitBlock());
@@ -46,7 +54,13 @@ public class GLRenderer implements Renderer {
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
+<<<<<<< HEAD
 
+=======
+//		gl.glTranslatef(0.5f, -0.5f, -5.0f);
+		gl.glTranslatef(tX, tY, tZ);
+		object.get(0).draw(gl);
+>>>>>>> 563c61fc155def45272b182aeeace4c0b6e61d23
 	}
 
 	@Override
