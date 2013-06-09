@@ -6,9 +6,9 @@ public class Board {
 
 	UnitBoard block[][][];
 	
-	float posX = -1.0f;
-	float posY = -1.0f;
-	float posZ = -3.0f;
+	float posX = -2.0f;
+	float posY = -2.0f;
+	float posZ = -4.0f;
 	float sizeX;
 	
 	float sizeY;
@@ -30,20 +30,20 @@ public class Board {
 			}
 		}
 		
-		posX += (float) (_PosX+1)*UnitBoard.unit_size;
-		posY += (float) (_PosY+1)*UnitBoard.unit_size;
-		posZ += (float) (_PosZ+1)*UnitBoard.unit_height;
+		posX += (float) (_PosX)*UnitBoard.unit_size;
+		posY += (float) (_PosY)*UnitBoard.unit_size;
+		posZ += (float) (_PosZ)*UnitBoard.unit_height;
 	
 	}
 	
 	
 	public void draw(GL10 gl)
 	{
-		gl.glTranslatef(posX, posY, posZ);
 		for ( int i = 0 ; i < sizeX; i++){
 			for ( int j = 0 ; j < sizeY; j++){
 				for ( int k = 0 ; k < sizeZ; k++){
 					gl.glPushMatrix();
+					gl.glTranslatef(posX, posY, posZ);
 					gl.glTranslatef(i*UnitBoard.unit_size, j*UnitBoard.unit_size, k*UnitBoard.unit_height);
 					block[i][j][k].draw(gl);
 					gl.glPopMatrix();

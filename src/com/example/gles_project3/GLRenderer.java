@@ -37,8 +37,10 @@ public class GLRenderer implements Renderer {
 		TouchManager.getInstance().setRenderer(this);
 		
 		lattice = new Lattice();
-		lattice.addBlock(1, 1, 1, 2, 3, 4);
-		lattice.addBlock(2, 2, 6, 2, 3, 4);
+		lattice.addBlock(1, 1, 1, 2, 3, 3);
+		lattice.addBlock(1, 1, 4, 2, 3, 3);
+		lattice.addBlock(1, 1, 7, 2, 3, 3);
+		lattice.addBlock(2, 3, 10, 2, 3, 3);
 		
 	}	
 	
@@ -48,17 +50,11 @@ public class GLRenderer implements Renderer {
 		gl.glLoadIdentity();
 
 		gl.glTranslatef(tX, tY, tZ);
-		
-		
-//		gl.glTranslatef(0, 0, -6);
-		
+				
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
-		
-//		gl.glTranslatef(0, 0, 6);
-		
-		
 		lattice.draw(gl);
+
 	}
 
 	@Override
