@@ -91,23 +91,32 @@ public class Lattice implements OnTouchInterface{
 		float BottomX = (float) (startPoint.x - directVector.x*T);
 		float BottomY = (float) (startPoint.y - directVector.y*T);
 		
-		int LatticeX = (int) (BottomX/UnitObject.half_unit_size);
-		int LatticeY = (int) (BottomY/UnitObject.half_unit_size);
+		int LatticeX = (int) (BottomX/UnitObject.unit_size);
+		int LatticeY = (int) (BottomY/UnitObject.unit_size);
 		int LatticeZ = 1;
+		
+		if ( LatticeX > 19 ) LatticeX = 19;
+		if ( LatticeX < 0 ) LatticeX = 0;
+		if ( LatticeY > 19 ) LatticeY = 19;
+		if ( LatticeY < 0 ) LatticeY = 0;
+		
 		while ( lattice[LatticeX][LatticeY][LatticeZ] != Lattice.lat_exist )
 		{
 			LatticeZ++;
+			if ( LatticeZ == 30 )
+			{	LatticeZ = 29;
+				break;
+			}
 		}
 		
 		Color drawingColor = new Color(Object.drawingColor);
-		drawingColor.a = 0.1f;
+		drawingColor.a = 0.0f;
 		this.tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
 	}
 
 	@Override
 	public void onInputTouchUp(Dot startPoint, Dot directVector) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
