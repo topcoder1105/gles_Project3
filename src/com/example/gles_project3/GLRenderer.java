@@ -33,11 +33,7 @@ public class GLRenderer implements Renderer {
 
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
-		
-		
-		
-		TouchManager.getInstance().setRenderer(this);
-		
+				
 		
 //		object = new Vector<Object>();
 //		object.add(new UnitBlock());
