@@ -13,7 +13,7 @@ public class Lattice implements OnTouchInterface{
 	public static final int lat_height = 20;
 	public static final int lat_depth = 30;
 	
-	int lattice[][][] = new int[20][20][30];
+	int lattice[][][] = new int[lat_width][lat_height][lat_depth];
 
 	public static final CRD_float OriginPoint = new CRD_float(0.0f,0.0f,0.0f);
 	
@@ -43,18 +43,29 @@ public class Lattice implements OnTouchInterface{
 			
 	    for(int i=0; i<_Size.x; i++)
 			for(int j=0; j <_Size.y; j++)
-				for(int k=0; k<_Size.z; k++)
-					
-					if ( lattice[_Pos.x+i][_Pos.y+j][_Pos.z+k] == Lattice.lat_exist )
+				for(int k=0; k<_Size.z; k++){
+					int x = (_Pos.x+i)%Lattice.lat_width;
+					int y = (_Pos.y+j)%Lattice.lat_height;
+					int z = (_Pos.z+k)%Lattice.lat_depth; 
+						
+					if ( lattice[x][y][z] == Lattice.lat_exist ){
 						possible = false;
+						return ;
+					}
+				}
 		
-		boolean bottom = false;
+	    boolean bottom = false;
 		for(int i=0; i<_Size.x; i++)
-			for(int j=0; j<_Size.y; j++)
-				if ( lattice[_Pos.x+i][_Pos.y+j][_Pos.z-1] == Lattice.lat_exist ){
+			for(int j=0; j<_Size.y; j++){
+				int x = (_Pos.x+i)%Lattice.lat_width;
+				int y = (_Pos.y+j)%Lattice.lat_height;
+				int z = (_Pos.z-1)%(Lattice.lat_depth-1); 
+				
+				if ( lattice[x][y][z] == Lattice.lat_exist ){
 					bottom = true;
 					break;
 				}
+			}
 		
 		possible = bottom;
 		
@@ -65,7 +76,13 @@ public class Lattice implements OnTouchInterface{
 			for(int i=0; i<_Size.x; i++)
 				for(int j=0; j<_Size.y; j++)
 					for(int k=0; k<_Size.z; k++)
-						lattice[_Pos.x+i][_Pos.y+j][_Pos.z+k] = Lattice.lat_exist;
+					{
+						int x = (_Pos.x+i)%Lattice.lat_width;
+						int y = (_Pos.y+j)%Lattice.lat_height;
+						int z = (_Pos.z+k)%Lattice.lat_depth; 
+					
+						lattice[x][y][z] = Lattice.lat_exist;
+					}
 		}
 	}
 
