@@ -134,22 +134,22 @@ public class UnitBoard {
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-
+		
 		//Set the face rotation
-		gl.glFrontFace(GL10.GL_CCW);
+		gl.glFrontFace(GL10.GL_CW);
 		
 		//Point to our buffers
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
 		gl.glColorPointer(4, GL10.GL_FLOAT, 0, mColorBuffer);
 		gl.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
-		
+
 		//Draw the vertices as triangles, based on the Index Buffer information
 		gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
 		
 		//Disable the client state before leaving
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);	
+		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 		
 		gl.glPushMatrix();
 		gl.glTranslatef(0.0f,0.0f,unit_height*5.0f/6.0f);
@@ -174,4 +174,8 @@ public class UnitBoard {
 		return buffer;
 	}
 
+
+    
 }
+
+

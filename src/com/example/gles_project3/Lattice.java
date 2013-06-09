@@ -22,7 +22,7 @@ public class Lattice {
 		}
 		
 		// 바닥면 만들고 해당 지역에 1로 체크
-		BoardVector.add(new Board(0, 0, 0, 20, 20, 1));
+		BoardVector.add(new Board(0, 0, 0, 20, 20, 1, 1));
 		for(int i = 0 ; i < 20; i++){
 			for(int j = 0 ; j < 20; j++){
 				for(int k=0; k < 1; k++){
@@ -33,21 +33,20 @@ public class Lattice {
 	}
 	
 	
-	void addBlock(int _PosX, int _PosY, int _PosZ, int _SizeX, int _SizeY, int _SizeZ)
+	void addBlock(int _PosX, int _PosY, int _PosZ, int _SizeX, int _SizeY, int _SizeZ, int _Color)
 	{
 		boolean possible = true;
 		
 		
 		// 새로 놓을 블럭의 위치에 겹치는 물건이 있는지 확인
-		for(int i = 0 ; i < _SizeX; i++){
-			for(int j = 0 ; j < _SizeY; j++){
-				for(int k=0; k<_SizeZ; k++){
+		for(int i = 0; i< _SizeX; i++){
+			for(int j = 0; j < _SizeY; j++){
+				for(int k = 0; k<_SizeZ; k++){
 					if ( lattice[_PosX+i][_PosY+j][_PosZ+k] == 1 )
 						possible = false;
 				}
 			}
 		}
-
 		// 새로 놓을 블럭 밑에 무엇인가 지탱해줄 것이 있는지 확인
 		boolean bottom = false;
 		for(int i = 0 ; i < _SizeX; i++){
@@ -58,12 +57,12 @@ public class Lattice {
 				}
 			}
 		} // 밑에 아무것도 없으면 false 이므로 불가능
-		if ( bottom )
-			possible = false;
-				
+		
+		possible = bottom;
+		
 		if ( possible )
 		{
-			BoardVector.add(new Board(_PosX, _PosY, _PosZ, _SizeX, _SizeY, _SizeZ));
+			BoardVector.add(new Board(_PosX, _PosY, _PosZ, _SizeX, _SizeY, _SizeZ, _Color));
 			for(int i = 0 ; i < _SizeX; i++){
 				for(int j = 0 ; j < _SizeY; j++){
 					for(int k=0; k<_SizeZ; k++){

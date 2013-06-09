@@ -8,10 +8,10 @@ public class Color {
 	
 	Color(int _R, int _G, int _B, int _A)
 	{	
-		r = _R;
-		g = _G;
-		b = _B;
-		a = _A;
+		r = _R/255.0f;
+		g = _G/255.0f;
+		b = _B/255.0f;
+		a = _A/255.0f;
 	}
 	
 	Color(Color _CLR)

@@ -112,9 +112,11 @@ public class UnitBlock extends Object {
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_COLOR_MATERIAL);
+		
 		gl.glEnable(GL10.GL_BLEND);
+		
 		gl.glFrontFace(GL10.GL_CW);
-
+		
 		Material_Flat_Gray(gl);
 
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);

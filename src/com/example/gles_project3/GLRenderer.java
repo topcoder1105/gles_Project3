@@ -15,30 +15,20 @@ import android.opengl.GLU;
 public class GLRenderer implements Renderer {
 
 	private Lattice lattice;
-	
+
 	private float tX = 0, tY = 0, tZ = -5f;
 	private float rX = 0, rY = 0, rZ = 0;
-
-	
-	private float[] lightAmbient = {1.0f, 0.1f, 0.1f, 0.1f};
-	private float[] lightDiffuse = {1.0f, 0.1f, 0.1f, 0.1f};
-	private float[] lightPosition = {0.0f, 0.0f, 10.0f, 0.0f};
-	private float[] lightSpecular = {0.1f, 0.0f, 0.0f, 1.0f}; // Specular
-	
-	
-	/* The buffers for our light values ( NEW ) */
-	private FloatBuffer lightAmbientBuffer = getFloatBufferFromFloatArray(lightAmbient);
-	private FloatBuffer lightDiffuseBuffer = getFloatBufferFromFloatArray(lightDiffuse);
-	private FloatBuffer lightPositionBuffer = getFloatBufferFromFloatArray(lightPosition);
-	private FloatBuffer lightSpecularBuffer = getFloatBufferFromFloatArray(lightSpecular);	
 
 	public GLRenderer(GLSurfaceView glSurfaceView) {
 		TouchManager.getInstance().setRenderer(this);
 		TouchManager.getInstance().convertUVToRotation();
 		
 		lattice = new Lattice();
-		lattice.addBlock(1, 1, 1, 2, 3, 4);
-		lattice.addBlock(2, 2, 6, 2, 3, 4);
+		lattice.addBlock(1, 1, 1, 2, 3, 3, 0);
+		lattice.addBlock(1, 1, 4, 2, 3, 3, 2);
+		lattice.addBlock(1, 1, 7, 2, 3, 3, 3);
+		lattice.addBlock(2, 3, 10, 2, 3, 3, 4);
+		lattice.addBlock(10, 10, 1, 2, 3, 3, 5);
 		
 	}	
 	
@@ -48,18 +38,14 @@ public class GLRenderer implements Renderer {
 		gl.glLoadIdentity();
 
 		gl.glTranslatef(tX, tY, tZ);
-		
-		
-//		gl.glTranslatef(0, 0, -6);
-		
+				
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
 		gl.glRotatef(rZ, 0, 0, 1);
 		
 //		gl.glTranslatef(0, 0, 6);
-		
-		
 		lattice.draw(gl);
+
 	}
 
 	@Override
@@ -75,16 +61,15 @@ public class GLRenderer implements Renderer {
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, lightAmbientBuffer);		//Setup The Ambient Light ( NEW )
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, lightDiffuseBuffer);		//Setup The Diffuse Light ( NEW )
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, lightPositionBuffer);	//Position The Light ( NEW )
-		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_SPECULAR, lightSpecularBuffer);	//Specular The Light ( NEW )		
-
 		gl.glEnable(GL10.GL_LIGHT0);											//Enable Light 0 ( NEW )
-		gl.glEnable(GL10.GL_LIGHTING);
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, staticVar.lightAmbientBuffer);		//Setup The Ambient Light ( NEW )
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, staticVar.lightDiffuseBuffer);		//Setup The Diffuse Light ( NEW )
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, staticVar.lightPositionBuffer);	//Position The Light ( NEW )
+		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_SPECULAR, staticVar.lightSpecularBuffer);	//Specular The Light ( NEW )		
+ 		gl.glEnable(GL10.GL_LIGHTING);
 		
-		
-		gl.glShadeModel(GL10.GL_SMOOTH);
+		gl.glEnable(GL10.GL_COLOR_MATERIAL);
+ 		gl.glShadeModel(GL10.GL_SMOOTH);
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		gl.glClearDepthf(1.0f);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
