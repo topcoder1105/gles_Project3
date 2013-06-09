@@ -6,7 +6,11 @@ public class Object {
 	
 	UnitObject block[][][];
 	ObjectData objectData;
-		
+	
+	public static CRD_int drawingSize = new CRD_int(2,3,4);
+	public static Color drawingColor = new Color(Color.red);
+	
+	
 	Color red = new Color(100,0,0,255);
 	Color green = new Color(0,100,0,255);
 	Color blue = new Color(0,0,100,255);

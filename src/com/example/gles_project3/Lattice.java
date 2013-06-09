@@ -4,21 +4,22 @@ import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public class Lattice {
+public class Lattice implements OnTouchInterface{
 	// 각 격자들의 상태( 객체가 있음, 없음 등)을 저장하는 3차원 배열
 	int lattice[][][] = new int[20][20][30];
-	
+
 	public static final int lat_empty = 101; // 격자에 아무것도 없을 때
 	public static final int lat_exist = 102; // 격자에 객체가 존재할 때
 	public static final int lat_width = 20;
 	public static final int lat_height = 20;
-
+	
 	
 	// 좌표의 기준이 되는 점(x,y,z 축의 가장 작은 값)
 	public static final CRD_float OriginPoint = new CRD_float(0.0f,0.0f,0.0f);
 	
 	// 객체들을 저장하는 벡터
 	Vector<Object> ObjectVector = new Vector<Object>();
+	Object tmpObject;
 	
 	Lattice()
 	{	// 격자의 모든 상태를 빈상태로 표현
@@ -32,7 +33,7 @@ public class Lattice {
 		for(int i=0; i<Lattice.lat_width; i++)
 			for(int j=0; j<Lattice.lat_height; j++)
 				for(int k=0; k<1; k++)
-					lattice[i][j][k] = Lattice.lat_exist;		
+					lattice[i][j][k] = Lattice.lat_exist;
 	}
 		
 	void addBlock(CRD_int _Pos, CRD_int _Size, Color _Color)
@@ -74,6 +75,30 @@ public class Lattice {
 		for ( int i=0; i<ObjectVector.size(); i++){
 			ObjectVector.get(i).draw(gl);
 		}
+		if ( tmpObject != null )
+			tmpObject.draw(gl);
 	}
-	
+
+	@Override
+	public void onTouch(Dot startPoint, Dot directVector) {
+		
+		CRD_float SP = new CRD_float((float) startPoint.x, (float) startPoint.y,(float) startPoint.z);
+		CRD_float DV = new CRD_float((float) directVector.x,(float) directVector.y,(float) directVector.z); 
+		
+		float T = (float) (startPoint.z/directVector.z);	
+		float BottomX = (float) (startPoint.x - directVector.x*T);
+		float BottomY = (float) (startPoint.y - directVector.y*T);
+		
+		int LatticeX = (int) (BottomX/UnitObject.half_unit_size);
+		int LatticeY = (int) (BottomY/UnitObject.half_unit_size);
+		int LatticeZ = 1;
+		while ( lattice[LatticeX][LatticeY][LatticeZ] != Lattice.lat_exist )
+		{
+			LatticeZ++;
+		}
+		
+		Color drawingColor = new Color(Object.drawingColor);
+		drawingColor.a = 0.1f;
+		this.tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
+	}
 }
