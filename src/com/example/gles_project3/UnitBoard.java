@@ -152,7 +152,7 @@ public class UnitBoard {
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);	
 		
 		gl.glPushMatrix();
-		gl.glTranslatef(0.0f,0.0f,unit_height);
+		gl.glTranslatef(0.0f,0.0f,unit_height*5.0f/6.0f);
 		unitcylinder.draw(gl);
 		gl.glPopMatrix();
 	}

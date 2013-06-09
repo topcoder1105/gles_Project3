@@ -16,11 +16,12 @@ import android.opengl.GLU;
 public class GLRenderer implements Renderer {
 
 	Vector<Object> object;
-	
+	Board board = null;
 	private float tX = 0, tY = 0, tZ = -5f;
 	private float rX = 0, rY = 0;
 
 	UnitBoard unitboard = null;
+
 	
 	private float[] lightAmbient = {1.0f, 0.1f, 0.1f, 0.1f};
 	private float[] lightDiffuse = {1.0f, 0.1f, 0.1f, 0.1f};
@@ -39,6 +40,7 @@ public class GLRenderer implements Renderer {
 //		object = new Vector<Object>();
 //		object.add(new UnitBlock());
 		unitboard = new UnitBoard(new Color(255, 0, 0, 255));
+		board = new Board(1, 1, 1, 2, 3, 4);
 		
 		
 	}	
@@ -52,8 +54,8 @@ public class GLRenderer implements Renderer {
 		gl.glTranslatef(tX, tY, tZ);
 		gl.glRotatef(rX, 1, 0, 0);
 		gl.glRotatef(rY, 0, 1, 0);
+		board.draw(gl);
 		unitboard.draw(gl);
-		gl.glLoadIdentity();
 
 	}
 
@@ -62,7 +64,7 @@ public class GLRenderer implements Renderer {
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
-		GLU.gluPerspective(gl, 45.0f, (float) width/height , 1.0f, 30.f);
+		GLU.gluPerspective(gl, 45.0f, (float) width/height , 0.01f, 1000.0f);
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		

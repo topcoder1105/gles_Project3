@@ -14,7 +14,7 @@ public class UnitCylinder {
 	private ByteBuffer mIndexBuffer = null;
 	
 	private Color CLR;
-	private float[] colors = new float[4*38];	
+	private float[] colors = new float[4*39];	
 	
 	final float unit_size = 0.2f;
 	final float unit_height = 0.08f;
@@ -22,9 +22,9 @@ public class UnitCylinder {
 	final float half_unit_size = UnitBoard.unit_size/3;
 	final float half_unit_height = UnitBoard.unit_height/3;
 	
-	private float vertices[] = new float[3*38];
+	private float vertices[] = new float[3*39];
 	
-	private float normals[] = new float [3*38];
+	private float normals[] = new float [3*39];
 		
 	private byte indices[] = new byte [3*12 + 6*12];
 
@@ -40,6 +40,8 @@ public class UnitCylinder {
 		normals[0] = 0.0f;
 		normals[1] = 0.0f;
 		normals[2] = 1.0f;
+		
+		
 		for ( int i = 0 ; i < 12 ; i++){
 			vertices[3 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
 			vertices[3 + i*3+1] = (float) ((float)  half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
@@ -48,8 +50,8 @@ public class UnitCylinder {
 			normals[3 + i*3+1] = 0.0f;
 			normals[3 + i*3+2] = 1.0f;
 		}
-		
-		for ( int i = 0 ; i < 12 ; i++){
+				
+		for ( int i = 0 ; i < 13 ; i++){
 			vertices[39 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
 			vertices[39 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
 			vertices[39 + i*3+2] = half_unit_height; 			
@@ -58,34 +60,34 @@ public class UnitCylinder {
 			normals[39 + i*3+2] = 0.0f;		
 		}
 		for ( int i = 0 ; i < 13; i++){
-			vertices[75 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
-			vertices[75 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
-			vertices[75 + i*3+2] = -half_unit_height; 				
-			normals[75 + i*3] = (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i + Math.PI/12.0f ));
-			normals[75 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i + Math.PI/12.0f));
-			normals[75 + i*3+2] = 0.0f;		
+			vertices[78 + i*3] =  (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i ));
+			vertices[78 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i ));
+			vertices[78 + i*3+2] = -half_unit_height; 				
+			normals[78 + i*3] = (float) ((float) half_unit_size*Math.cos( (float) Math.PI/6.0f * i + Math.PI/12.0f ));
+			normals[78 + i*3+1] = (float) ((float) half_unit_size*Math.sin( (float) Math.PI/6.0f * i + Math.PI/12.0f));
+			normals[78 + i*3+2] = 0.0f;		
 		}
 		
 		for ( int i = 0 ; i < 12 ; i++)
 		{
 			indices[i*3] = 0;
-			if ( i == 11){ indices[i*3+1] = (byte) (i + 1 - 11);	}
-			else{	indices[i*3+1] = (byte) (i + 1);	}	
+			indices[i*3+1] = (byte) ( i + 1);
 			
-			if ( i == 11){ indices[i*3+2] = (byte) (i + 2 - 11);	}
+			if ( i == 11){ indices[i*3+2] = (byte) (i + 2 - 12);	}
 			else{	indices[i*3+2] = (byte) (i + 2);	}	
 		}
+		
 		for ( int i = 0 ; i < 12 ; i++)
 		{
 			indices[36+ i*6] = (byte) (13 + i);
 			indices[36+ i*6+1] = (byte) (14 + i);
-			indices[36+ i*6+2] = (byte) (25 + i);
-			indices[36+ i*6+3] = (byte) (25 + i);
+			indices[36+ i*6+2] = (byte) (26 + i);
+			indices[36+ i*6+3] = (byte) (26 + i);
 			indices[36+ i*6+4] = (byte) (14 + i);
-			indices[36+ i*6+5] = (byte) (26 + i);			
+			indices[36+ i*6+5] = (byte) (27 + i);			
 		}
 
-		for ( int i = 0 ; i < 38; i++){	
+		for ( int i = 0 ; i < 39; i++){	
 			colors[i*4] = CLR.r;	colors[i*4+1] = CLR.g;	colors[i*4+2] = CLR.b;	colors[i*4+3] = CLR.a;
 		}
 		
@@ -103,7 +105,7 @@ public class UnitCylinder {
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 
 		//Set the face rotation
-		gl.glFrontFace(GL10.GL_CCW);
+		gl.glFrontFace(GL10.GL_CW);
 		
 		//Point to our buffers
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
