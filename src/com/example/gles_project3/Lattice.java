@@ -100,7 +100,8 @@ public class Lattice implements OnTouchInterface{
 		if ( LatticeY > 19 ) LatticeY = 19;
 		if ( LatticeY < 0 ) LatticeY = 0;
 		
-		while ( lattice[LatticeX][LatticeY][LatticeZ] != Lattice.lat_exist )
+//		Object tmp = new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor));
+		while ( lattice[LatticeX][LatticeY][LatticeZ] != Lattice.lat_empty )
 		{
 			LatticeZ++;
 			if ( LatticeZ == 30 )
@@ -110,7 +111,7 @@ public class Lattice implements OnTouchInterface{
 		}
 		
 		Color drawingColor = new Color(Object.drawingColor);
-		drawingColor.a = 0.0f;
+		drawingColor.a = 0.001f;
 		this.tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
 	}
 
