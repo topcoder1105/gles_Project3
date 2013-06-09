@@ -101,36 +101,18 @@ public class TouchManager {
 	}
 	
 	void onSingleTouchDown(double dx, double dy) {
-		if (onTouchInterface != null) {
-			Dot rotation = convertUVToRotation();
-			
-			double px = dx * renderer.gettZ() / renderer.getWidth() - renderer.gettZ() / 2;
-			double py = (renderer.getHeight() - dy) * renderer.gettZ() / renderer.getHeight() - renderer.gettZ() / 2 ;
-
-			Dot start_point = new Dot(-px, -py, 0);
-			Dot direct_vector = new Dot(0, 0, 1);
-			
-			onTouchInterface.onInputTouchDown(start_point.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0)
-					, direct_vector.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0));
-		}
+		onInputTouchHandle(dx, dy, 0);
 	}
 	
 	void onSingleTouchUp(double dx, double dy) {
-		if (onTouchInterface != null) {
-			Dot rotation = convertUVToRotation();
-			
-			double px = dx * renderer.gettZ() / renderer.getWidth() - renderer.gettZ() / 2;
-			double py = (renderer.getHeight() - dy) * renderer.gettZ() / renderer.getHeight() - renderer.gettZ() / 2 ;
-
-			Dot start_point = new Dot(-px, -py, 0);
-			Dot direct_vector = new Dot(0, 0, 1);
-			
-			onTouchInterface.onInputTouchUp(start_point.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0)
-					, direct_vector.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0));
-		}
+		onInputTouchHandle(dx, dy, 1);
 	}
 	
 	void onSingleTouchCancel(double dx, double dy) {
+		onInputTouchHandle(dx, dy, 2);
+	}
+	
+	void onInputTouchHandle(double dx, double dy, int mode) {
 		if (onTouchInterface != null) {
 			Dot rotation = convertUVToRotation();
 			
@@ -138,10 +120,24 @@ public class TouchManager {
 			double py = (renderer.getHeight() - dy) * renderer.gettZ() / renderer.getHeight() - renderer.gettZ() / 2 ;
 
 			Dot start_point = new Dot(-px, -py, 0);
+			start_point.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0);
 			Dot direct_vector = new Dot(0, 0, 1);
+			direct_vector.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0);
 			
-			onTouchInterface.onInputTouchCancel(start_point.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0)
-					, direct_vector.rotate_with_degree(rotation.z, 0, 0, 1).rotate_with_degree(-rotation.y, 0, 1, 0).rotate_with_degree(rotation.x, 1, 0, 0));
+			switch (mode) {
+			case 0: // down
+				onTouchInterface.onInputTouchDown(start_point, direct_vector);
+				break;
+			case 1: // up
+				onTouchInterface.onInputTouchUp(start_point, direct_vector);
+				break;
+			case 2: // cancel
+				onTouchInterface.onInputTouchCancel(start_point, direct_vector);
+				break;
+
+			default:
+				break;
+			}
 		}
 	}
 	
