@@ -57,6 +57,8 @@ public class GLRenderer implements Renderer {
 
 	}
 
+
+
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		gl.glViewport(0, 0, width, height);
@@ -76,15 +78,16 @@ public class GLRenderer implements Renderer {
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, lightPositionBuffer);	//Position The Light ( NEW )
 		gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_SPECULAR, lightSpecularBuffer);	//Specular The Light ( NEW )		
  		gl.glEnable(GL10.GL_LIGHTING);
-		
+ 		
+ 		gl.glEnable(GL10.GL_BLEND);
+ 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+ 		gl.glEnable(GL10.GL_ALPHA_TEST);
 		gl.glEnable(GL10.GL_COLOR_MATERIAL);
-		gl.glBlendFunc ( GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA );
 		gl.glShadeModel(GL10.GL_SMOOTH);
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		gl.glClearDepthf(1.0f);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL10.GL_LEQUAL);
-//		 gl.glDepthFunc(GL10.GL_LESS);
 
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
 	}

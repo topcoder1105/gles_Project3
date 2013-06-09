@@ -111,8 +111,13 @@ public class Lattice implements OnTouchInterface{
 		}
 		
 		Color drawingColor = new Color(Object.drawingColor);
-		drawingColor.a = 0.001f;
+		drawingColor.a = 0.4f;
+		drawingColor.r *= 2.55f;
+		drawingColor.g *= 2.55f;
+		drawingColor.b *= 2.55f;
+		
 		this.tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
+		
 	}
 
 	@Override
