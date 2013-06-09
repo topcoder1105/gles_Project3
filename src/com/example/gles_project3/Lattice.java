@@ -6,14 +6,17 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class Lattice implements OnTouchInterface{
 	
-	int lattice[][][] = new int[20][20][30];
 
 	public static final int lat_empty = 101;
 	public static final int lat_exist = 102;
 	public static final int lat_width = 20;
 	public static final int lat_height = 20;
-		
+	public static final int lat_depth = 30;
+	
+	int lattice[][][] = new int[20][20][30];
+
 	public static final CRD_float OriginPoint = new CRD_float(0.0f,0.0f,0.0f);
+	
 	
 	Vector<Object> ObjectVector = new Vector<Object>();
 	Object tmpObject;
@@ -41,6 +44,7 @@ public class Lattice implements OnTouchInterface{
 	    for(int i=0; i<_Size.x; i++)
 			for(int j=0; j <_Size.y; j++)
 				for(int k=0; k<_Size.z; k++)
+					
 					if ( lattice[_Pos.x+i][_Pos.y+j][_Pos.z+k] == Lattice.lat_exist )
 						possible = false;
 		
@@ -73,11 +77,19 @@ public class Lattice implements OnTouchInterface{
 			tmpObject.draw(gl);
 	}
 
+	public void Undo()
+	{
+		this.ObjectVector.remove(this.ObjectVector.size()-1);
+	}
+	
+	
+	
+	
 	@Override
 	public void onInputTouchDown(Dot startPoint, Dot directVector) {
 //		CRD_float SP = new CRD_float((float) startPoint.x, (float) startPoint.y,(float) startPoint.z);
 //		CRD_float DV = new CRD_float((float) directVector.x,(float) directVector.y,(float) directVector.z); 
-		
+		this.tmpObject = null;
 		float T = (float) (startPoint.z/directVector.z);	
 		float BottomX = (float) (startPoint.x - directVector.x*T);
 		float BottomY = (float) (startPoint.y - directVector.y*T);
@@ -109,15 +121,17 @@ public class Lattice implements OnTouchInterface{
 		this.tmpObject = new Object(new CRD_int(LatticeX,LatticeY,LatticeZ), new CRD_int(Object.drawingSize), new Color(drawingColor) );
 		
 	}
-
+	
+	
 	@Override
 	public void onInputTouchUp(Dot startPoint, Dot directVector) {
-
+		this.addBlock(this.tmpObject.objectData.pos,this.tmpObject.objectData.size, Object.drawingColor);
+		this.tmpObject = null;
 	}
 
 	@Override
 	public void onInputTouchCancel(Dot startPoint, Dot directVector) {
-		
+		this.tmpObject = null;
 	}
 
 	@Override

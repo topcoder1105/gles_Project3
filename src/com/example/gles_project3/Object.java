@@ -36,6 +36,8 @@ public class Object {
 	}
 	
 	
+	
+
 	public void draw(GL10 gl){
 		for(int i=0; i<this.objectData.size.x; i++)
 			for(int j=0; j<this.objectData.size.y; j++)
