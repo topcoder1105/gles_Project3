@@ -11,11 +11,14 @@ import javax.microedition.khronos.opengles.GL10;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
 
+
+
 public class GLRenderer implements Renderer {
 
 	Vector<Object> object;
 	
 	private float tX = 0, tY = 0, tZ = -5f;
+	private float rX = 0, rY = 0;
 
 	UnitBoard unitboard = null;
 	
@@ -50,7 +53,7 @@ public class GLRenderer implements Renderer {
 		unitboard.draw(gl);
 		gl.glLoadIdentity();
 //		object.get(0).draw(gl);
-	}
+}
 
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -106,6 +109,22 @@ public class GLRenderer implements Renderer {
 
 	public void settZ(float tZ) {
 		this.tZ = tZ;
+	}
+
+	public float getrX() {
+		return rX;
+	}
+
+	public void setrX(float rX) {
+		this.rX = rX;
+	}
+
+	public float getrY() {
+		return rY;
+	}
+
+	public void setrY(float rY) {
+		this.rY = rY;
 	}
 	
 	FloatBuffer getFloatBufferFromFloatArray(float array[]) {
